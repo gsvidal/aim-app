@@ -11,9 +11,11 @@ function App() {
 
   const { text } = message
 
+  const apiUrl = import.meta.env.VITE_BASE_URL;
+
   useEffect(() => {
     const fetchMessage = async () => {
-      const response = await fetch('http://127.0.0.1:5000/login');
+      const response = await fetch(`${apiUrl}/login`);
       const data = await response.json();
       setMessage(data);
     }
