@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
+import { Routes, Route, Navigate } from 'react-router-dom';
 import viteLogo from '/vite.svg'
-import './App.css'
+import './App.scss'
 
 type Obj = {
   text: string
@@ -23,10 +24,10 @@ function App() {
   }, []);
 
   return (
-    <>
-      <p>This is the first step</p>
-      <p>Message from the backend: {text}</p>
-    </>
+    <Routes>
+      <Route path="/" element={<Navigate to="/login" />}/>
+      <Route path="/login" element={<p className="para">hello there</p>}/>
+    </Routes>
   )
 }
 
