@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom';
 import viteLogo from '/vite.svg'
 import './App.scss'
+import { Login } from './components/Login/Login';
 
 type Obj = {
   text: string
@@ -26,7 +27,7 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Navigate to="/login" />}/>
-      <Route path="/login" element={<p className="para">hello there</p>}/>
+      <Route path="/login" element={<Login />}/>
     </Routes>
   )
 }
