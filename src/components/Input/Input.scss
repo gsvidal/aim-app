@@ -1,0 +1,45 @@
+.input__container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 20px 0;
+  position: relative;
+}
+
+.input__label {
+  margin: 4px 0;
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  color: rgb(184, 184, 184);
+  pointer-events: none;
+  transition: all 0.3s ease-out;
+}
+
+.input__label.active-label {
+  top: 2px;
+  left: -7px;
+  transform: translateY(-120%) scale(0.8);
+  color: var(--main-color);
+  font-weight: bold;
+}
+
+.input__item {
+  width: 200px;
+  margin: 8px 0;
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid rgb(181, 181, 181);
+  background-color: transparent;
+  caret-color: white;
+
+
+  @media screen and (min-width: 500px) {
+    width: 300px;
+  }
+}
+
+.input__item:focus {
+  border: 1px solid rgb(122, 122, 122);
+  outline: none;
+}
