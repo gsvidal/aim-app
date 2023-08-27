@@ -7,7 +7,11 @@ import { Input } from "../Input/Input";
 import { ErrorPage } from "../ErrorPage/ErrorPage";
 import "./Login.scss";
 
-export const Login: React.FC = () => {
+type LoginProps = {
+  setIsUserLoggedIn: (value:boolean) => void;
+}
+
+export const Login: React.FC<LoginProps> = ({setIsUserLoggedIn}) => {
   const usernameInput = useInput("login");
   const passwordInput = useInput("login");
 
@@ -51,6 +55,7 @@ export const Login: React.FC = () => {
         // In case login successfully
         const data = await response.json();
         console.log(data); // message: Logged in successfully
+        setIsUserLoggedIn(true);
         navigate("/");
       } else {
         const error = await response.json();

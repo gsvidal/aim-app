@@ -7,7 +7,11 @@ import { Button } from "../Button/Button";
 import { ErrorPage } from "../ErrorPage/ErrorPage";
 import "./Register.scss";
 
-export const Register: React.FC = () => {
+type RegisterProps = {
+  setIsUserLoggedIn: (value: boolean) => void;
+};
+
+export const Register: React.FC<RegisterProps> = ({ setIsUserLoggedIn }) => {
   const usernameInput = useInput("register");
   const passwordInput = useInput("register");
   const passwordConfirmationInput = useInput("register");
@@ -53,6 +57,7 @@ export const Register: React.FC = () => {
         // In case registered successfully
         const data = await response.json();
         console.log(data); // message: Registered successfully
+        setIsUserLoggedIn(true);
         navigate("/");
       } else {
         const error = await response.json();
