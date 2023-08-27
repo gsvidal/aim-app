@@ -1,4 +1,3 @@
-import { ChangeEvent, useState } from "react";
 import "./Input.scss";
 
 type InputProps = {

@@ -9,8 +9,6 @@ type Obj = {
 };
 
 function App() {
-  const apiUrl = import.meta.env.VITE_BASE_URL;
-
   return (
     <Routes>
       <Route path="/" element={<Navigate to="/login" />} />

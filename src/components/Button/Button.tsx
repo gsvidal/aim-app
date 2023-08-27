@@ -6,10 +6,7 @@ type ButtonProps = {
 };
 
 export const Button: React.FC<ButtonProps> = ({ children, isButtonActive }) => {
-  console.log(isButtonActive);
-  return (
-    <button className="button" disabled={!isButtonActive}>
-      {children}
-    </button>
-  );
+
+  // put disables={!isButt} when logs in correctly and get success message
+  return <button className="button">{children}</button>;
 };
