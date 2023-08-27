@@ -1,7 +1,7 @@
 import { ChangeEvent, useState, FocusEvent } from "react";
 
 const useInput = (initialValue: string = "") => {
-  const [value, setValue] = useState<string>(initialValue);
+  const [value, setValue] = useState<string>("");
   const [error, setError] = useState<string>("");
 
   const [isActive, setIsActive] = useState(false);
@@ -25,15 +25,17 @@ const useInput = (initialValue: string = "") => {
   const validateInput = (value: string, name: string) => {
     if (value.trim() === "") {
       setError("This field is required");
-    } else if (name === "password") {
-      if (value.length < 6) {
-        setError("This field must have at least 6 characters");
-      } else if (!/(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])/.test(value)) {
-        setError(
-          "Password must contain at least one uppercase letter, one number, and one symbol"
-        );
-      } else {
-        setError("");
+    } else if (initialValue === "register") {
+      if (name !== "username") {
+        if (value.length < 6) {
+          setError("This field must have at least 6 characters");
+        } else if (!/(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])/.test(value)) {
+          setError(
+            "Password must contain at least one uppercase letter, one number, and one symbol"
+          );
+        } else {
+          setError("");
+        }
       }
     } else {
       setError("");

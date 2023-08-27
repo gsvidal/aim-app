@@ -2,14 +2,15 @@ import { FormEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import useInput from "../../hooks/useInput";
-import { Button } from "../Button/Button";
 import { Input } from "../Input/Input";
+import { Button } from "../Button/Button";
 import { ErrorPage } from "../ErrorPage/ErrorPage";
-import "./Login.scss";
+import "./Register.scss";
 
-export const Login: React.FC = () => {
-  const usernameInput = useInput("login");
-  const passwordInput = useInput("login");
+export const Register: React.FC = () => {
+  const usernameInput = useInput("register");
+  const passwordInput = useInput("register");
+  const passwordConfirmationInput = useInput("register");
 
   const [isButtonActive, setIsButtonActive] = useState<boolean>(false);
 
@@ -20,23 +21,23 @@ export const Login: React.FC = () => {
   useEffect(() => {
     if (
       usernameInput.error == "" &&
-      passwordInput.error == ""
+      passwordInput.error == "" &&
+      passwordConfirmationInput.error == ""
     ) {
       setIsButtonActive(true);
     } else {
       setIsButtonActive(false);
     }
-  }, [usernameInput, passwordInput]);
+  }, [usernameInput, passwordInput, passwordConfirmationInput]);
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsButtonActive(false);
-    console.log("submit login form");
 
     const apiUrl = import.meta.env.VITE_API_URL;
 
     try {
-      const response = await fetch(`${apiUrl}/login`, {
+      const response = await fetch(`${apiUrl}/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -44,13 +45,14 @@ export const Login: React.FC = () => {
         body: JSON.stringify({
           username: usernameInput["value"],
           password: passwordInput["value"],
+          "password-confirmation": passwordConfirmationInput["value"],
         }),
       });
 
       if (response.ok) {
-        // In case login successfully
+        // In case registered successfully
         const data = await response.json();
-        console.log(data); // message: Logged in successfully
+        console.log(data); // message: Registered successfully
         navigate("/");
       } else {
         const error = await response.json();
@@ -67,7 +69,7 @@ export const Login: React.FC = () => {
       {error.message == "" ? (
         <form onSubmit={handleSubmit}>
           <fieldset>
-            <legend>LOGIN</legend>
+            <legend>REGISTER</legend>
             <Input
               name="username"
               label="Username"
@@ -80,7 +82,13 @@ export const Login: React.FC = () => {
               type="password"
               {...passwordInput}
             />
-            <Button isButtonActive={isButtonActive}>Login</Button>
+            <Input
+              name="password-confirmation"
+              label="Password Confirmation"
+              type="password"
+              {...passwordConfirmationInput}
+            />
+            <Button isButtonActive={isButtonActive}>Register</Button>
           </fieldset>
         </form>
       ) : (
