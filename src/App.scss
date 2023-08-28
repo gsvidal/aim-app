@@ -1,7 +1,9 @@
 #root {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   width: 90%;
+  min-width: 280px;
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
@@ -29,9 +31,19 @@ fieldset {
   flex-direction: column;
   align-items: center;
   border: none;
+  padding: 0 30px;
 }
 
 legend {
   margin: 20px 0;
   font-size: 2rem;
+}
+
+.client-error {
+  color: red;
+  padding: 10px 30px;
+  margin: 40px 0 0;
+  border: 1px solid rgb(255, 134, 134);
+  font-size: 1.4rem;
+  background-color: var(--error-color);
 }

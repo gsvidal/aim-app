@@ -1,23 +1,70 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import viteLogo from "/vite.svg";
 import "./App.scss";
 import { Login } from "./components/Login/Login";
 import { Register } from "./components/Register/Register";
 import { Header } from "./components/Header/Header";
+import { Dashboard } from "./components/Dashboard/Dashboard";
+import { Loader } from "./components/Loader/Loader";
+import { Toast } from "./components/Toast/Toast";
 
 function App() {
   const [isUserLoggedIn, setIsUserLoggedIn] = useState<boolean>(false);
 
+  const [toastMessage, setToastMessage] = useState<string>("");
+
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    const storedIsLoggedIn = localStorage.getItem("isLoggedIn");
+    setIsUserLoggedIn(storedIsLoggedIn === "true");
+    setIsLoading(false);
+  }, []);
+
+  if (isLoading) {
+    return <Loader />;
+  }
+
   return (
     <>
-      <Header isUserLoggedIn={isUserLoggedIn}/>
+      {toastMessage && <Toast>{toastMessage}</Toast>}
+      <Header
+        isUserLoggedIn={isUserLoggedIn}
+        setIsUserLoggedIn={setIsUserLoggedIn}
+        setToastMessage={setToastMessage}
+      />
       <main>
-        <Routes>
-          <Route path="/" element={<Navigate to="/login" />} />
-          <Route path="/login" element={<Login setIsUserLoggedIn={setIsUserLoggedIn}/>} />
-          <Route path="/register" element={<Register setIsUserLoggedIn={setIsUserLoggedIn}/>} />
-        </Routes>
+        {isUserLoggedIn ? (
+          <Routes>
+            <Route
+              path="/"
+              element={<Dashboard />}
+            />
+          </Routes>
+        ) : (
+          <Routes>
+            <Route path="/" element={<Navigate to="/login" />} />
+            <Route
+              path="/login"
+              element={
+                <Login
+                  setIsUserLoggedIn={setIsUserLoggedIn}
+                  setToastMessage={setToastMessage}
+                />
+              }
+            />
+            <Route
+              path="/register"
+              element={
+                <Register
+                  setIsUserLoggedIn={setIsUserLoggedIn}
+                  setToastMessage={setToastMessage}
+                />
+              }
+            />
+          </Routes>
+        )}
       </main>
     </>
   );

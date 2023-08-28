@@ -9,9 +9,11 @@ import "./Register.scss";
 
 type RegisterProps = {
   setIsUserLoggedIn: (value: boolean) => void;
+  setToastMessage: (value: string) => void;
+
 };
 
-export const Register: React.FC<RegisterProps> = ({ setIsUserLoggedIn }) => {
+export const Register: React.FC<RegisterProps> = ({ setIsUserLoggedIn,setToastMessage }) => {
   const usernameInput = useInput("register");
   const passwordInput = useInput("register");
   const passwordConfirmationInput = useInput("register");
@@ -56,8 +58,9 @@ export const Register: React.FC<RegisterProps> = ({ setIsUserLoggedIn }) => {
       if (response.ok) {
         // In case registered successfully
         const data = await response.json();
-        console.log(data); // message: Registered successfully
+        setToastMessage(data.message); // message: Registered successfully
         setIsUserLoggedIn(true);
+        localStorage.setItem("isLoggedIn", "true");
         navigate("/");
       } else {
         const error = await response.json();
