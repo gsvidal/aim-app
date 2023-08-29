@@ -6,14 +6,17 @@ import { Input } from "../Input/Input";
 import { Button } from "../Button/Button";
 import { ErrorPage } from "../ErrorPage/ErrorPage";
 import "./Register.scss";
+import { Loader } from "../Loader/Loader";
 
 type RegisterProps = {
   setIsUserLoggedIn: (value: boolean) => void;
   setToastMessage: (value: string) => void;
-
 };
 
-export const Register: React.FC<RegisterProps> = ({ setIsUserLoggedIn,setToastMessage }) => {
+export const Register: React.FC<RegisterProps> = ({
+  setIsUserLoggedIn,
+  setToastMessage,
+}) => {
   const usernameInput = useInput("register");
   const passwordInput = useInput("register");
   const passwordConfirmationInput = useInput("register");
@@ -21,6 +24,8 @@ export const Register: React.FC<RegisterProps> = ({ setIsUserLoggedIn,setToastMe
   const [isButtonActive, setIsButtonActive] = useState<boolean>(false);
 
   const [error, setError] = useState({ code: "", message: "" });
+  const [clientError, setClientError] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const navigate = useNavigate();
 
@@ -39,6 +44,7 @@ export const Register: React.FC<RegisterProps> = ({ setIsUserLoggedIn,setToastMe
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsButtonActive(false);
+    setIsLoading(true);
 
     const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -59,18 +65,29 @@ export const Register: React.FC<RegisterProps> = ({ setIsUserLoggedIn,setToastMe
         // In case registered successfully
         const data = await response.json();
         setToastMessage(data.message); // message: Registered successfully
+        console.log(
+          `received token (register) of ${usernameInput}:`,
+          data["access_token"]
+        );
+        localStorage.setItem("token", data["access_token"]);
         setIsUserLoggedIn(true);
         localStorage.setItem("isLoggedIn", "true");
         navigate("/");
       } else {
         const error = await response.json();
-        setError(error);
+        setClientError(error.message);
       }
     } catch (error) {
       setError({ code: "400", message: "An error ocurred" });
+      setIsLoading(false);
     }
     setIsButtonActive(true);
+    setIsLoading(false);
   };
+
+  if (isLoading) {
+    return <Loader />;
+  }
 
   return (
     <>
@@ -97,6 +114,7 @@ export const Register: React.FC<RegisterProps> = ({ setIsUserLoggedIn,setToastMe
               {...passwordConfirmationInput}
             />
             <Button isButtonActive={isButtonActive}>Register</Button>
+            {clientError && <p className="client-error">{clientError}</p>}
           </fieldset>
         </form>
       ) : (

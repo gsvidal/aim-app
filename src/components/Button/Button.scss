@@ -64,9 +64,12 @@
   background: #ffffff;
   left: 0;
   top: 0;
-  border-radius: 10px;
+  border-radius: 5px;
 }
 
+.button--play:after {
+  background: var(--main-color-very-light);
+}
 .button[disabled] {
   color: rgb(68, 68, 68);
   background: rgb(163, 163, 163);

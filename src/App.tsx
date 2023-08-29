@@ -16,9 +16,19 @@ function App() {
 
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
+  const [token, setToken] = useState<string>("");
+
   useEffect(() => {
+    // console.log("app mounted")
     const storedIsLoggedIn = localStorage.getItem("isLoggedIn");
     setIsUserLoggedIn(storedIsLoggedIn === "true");
+
+    const storedToken = localStorage.getItem("token");
+    // console.log("token stored in local inside effect:", storedToken)
+    if (storedToken) {
+      setToken(storedToken);
+    }
+
     setIsLoading(false);
   }, []);
 
@@ -33,14 +43,13 @@ function App() {
         isUserLoggedIn={isUserLoggedIn}
         setIsUserLoggedIn={setIsUserLoggedIn}
         setToastMessage={setToastMessage}
+        token={token}
+        setToken={setToken}
       />
       <main>
         {isUserLoggedIn ? (
           <Routes>
-            <Route
-              path="/"
-              element={<Dashboard />}
-            />
+            <Route path="/" element={<Dashboard token={token} />} />
           </Routes>
         ) : (
           <Routes>
@@ -51,6 +60,7 @@ function App() {
                 <Login
                   setIsUserLoggedIn={setIsUserLoggedIn}
                   setToastMessage={setToastMessage}
+                  setToken={setToken}
                 />
               }
             />

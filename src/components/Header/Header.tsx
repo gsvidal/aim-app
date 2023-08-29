@@ -6,12 +6,16 @@ type HeaderProps = {
   isUserLoggedIn: boolean;
   setIsUserLoggedIn: (value: boolean) => void;
   setToastMessage: (value: string) => void;
+  token: string;
+  setToken: (value: string) => void;
 };
 
 export const Header: React.FC<HeaderProps> = ({
   isUserLoggedIn,
   setIsUserLoggedIn,
   setToastMessage,
+  token,
+  setToken
 }) => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
 
@@ -40,12 +44,21 @@ export const Header: React.FC<HeaderProps> = ({
 
   const handleLogout = async () => {
     const apiUrl = import.meta.env.VITE_API_URL;
-    // Logout front
+    // Logout frontend
     localStorage.setItem("isLoggedIn", "false");
     setIsUserLoggedIn(false);
-    // Logout back
-    const response = await fetch(`${apiUrl}/logout`);
+
+    // Logout backend
+    const response = await fetch(`${apiUrl}/logout`, {
+      method: "GET",
+      credentials: "include",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     const data = await response.json();
+    localStorage.setItem("token", "");
+    setToken("")
     setToastMessage(data.message); // message: Logged out successfully
   };
 

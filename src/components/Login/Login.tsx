@@ -11,9 +11,14 @@ import { Loader } from "../Loader/Loader";
 type LoginProps = {
   setIsUserLoggedIn: (value: boolean) => void;
   setToastMessage: (value: string) => void;
+  setToken: (value: string) => void;
 };
 
-export const Login: React.FC<LoginProps> = ({ setIsUserLoggedIn,setToastMessage }) => {
+export const Login: React.FC<LoginProps> = ({
+  setIsUserLoggedIn,
+  setToastMessage,
+  setToken
+}) => {
   const usernameInput = useInput("login");
   const passwordInput = useInput("login");
 
@@ -21,6 +26,7 @@ export const Login: React.FC<LoginProps> = ({ setIsUserLoggedIn,setToastMessage 
 
   const [error, setError] = useState({ code: "", message: "" });
   const [clientError, setClientError] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const navigate = useNavigate();
 
@@ -31,8 +37,6 @@ export const Login: React.FC<LoginProps> = ({ setIsUserLoggedIn,setToastMessage 
       setIsButtonActive(false);
     }
   }, [usernameInput, passwordInput]);
-
-  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -56,13 +60,18 @@ export const Login: React.FC<LoginProps> = ({ setIsUserLoggedIn,setToastMessage 
       if (response.ok) {
         // In case login successfully
         const data = await response.json();
+        // console.log(data)
         setToastMessage(data.message); // message: Logged in successfully
-        setIsUserLoggedIn(true);
+        // console.log(data.message)
+        console.log(`received token (login) of ${usernameInput}:`, data["access_token"]);
+        localStorage.setItem("token", data["access_token"]);
+        setToken(data["access_token"]);
         localStorage.setItem("isLoggedIn", "true");
+        setIsUserLoggedIn(true);
         navigate("/");
       } else {
         const error = await response.json();
-        // setError(error);
+        // setError(error); TODO
         setClientError(error.message);
       }
     } catch (error) {
