@@ -15,7 +15,7 @@ export const Header: React.FC<HeaderProps> = ({
   setIsUserLoggedIn,
   setToastMessage,
   token,
-  setToken
+  setToken,
 }) => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
 
@@ -38,10 +38,6 @@ export const Header: React.FC<HeaderProps> = ({
     };
   }, []);
 
-  const handleCloseMenu = () => {
-    setIsMenuOpen(false);
-  };
-
   const handleLogout = async () => {
     const apiUrl = import.meta.env.VITE_API_URL;
     // Logout frontend
@@ -58,7 +54,7 @@ export const Header: React.FC<HeaderProps> = ({
     });
     const data = await response.json();
     localStorage.setItem("token", "");
-    setToken("")
+    setToken("");
     setToastMessage(data.message); // message: Logged out successfully
   };
 
@@ -81,35 +77,52 @@ export const Header: React.FC<HeaderProps> = ({
         <div className={`bar ${isMenuOpen ? "open" : ""}`}></div>
         <div className={`bar ${isMenuOpen ? "open" : ""}`}></div>
       </section>
-      <div className={`backdrop ${isMenuOpen ? "open" : ""}`}></div>
+      <div
+        className={`backdrop ${isMenuOpen ? "open" : ""}`}
+        onClick={toggleMenu}
+      ></div>
       <nav className={`nav ${isMenuOpen ? "open" : ""}`}>
         {isUserLoggedIn && (
           <ul className="nav__menu nav__menu--features">
             {/* Try an a tag */}
             <li className="nav__item">
-              <Link to="/">My Dashboard</Link>
+              <Link to="/" className="nav__link" onClick={toggleMenu}>
+                My Dashboard
+              </Link>
             </li>
-            <li className="nav__item">RT</li>
-            <li className="nav__item">Aim</li>
-            <li className="nav__item">Positions</li>
+            <li className="nav__item">
+              <Link to="/rt" className="nav__link" onClick={toggleMenu}>
+                RT
+              </Link>
+            </li>
+            <li className="nav__item">
+              <Link to="/" className="nav__link" onClick={toggleMenu}>
+                Aim
+              </Link>
+            </li>
+            <li className="nav__item">
+              <Link to="/" className="nav__link" onClick={toggleMenu}>
+                Positions
+              </Link>
+            </li>
           </ul>
         )}
         <ul className="nav__menu nav__menu--auth">
           {isUserLoggedIn ? (
             <li className="nav__item" onClick={handleLogout}>
-              <Link to="/" onClick={handleCloseMenu}>
+              <Link to="/" className="nav__link" onClick={toggleMenu}>
                 Logout
               </Link>
             </li>
           ) : (
             <>
               <li className="nav__item">
-                <Link to="/register" onClick={handleCloseMenu}>
+                <Link to="/register" className="nav__link" onClick={toggleMenu}>
                   Register
                 </Link>
               </li>
               <li className="nav__item">
-                <Link to="/login" onClick={handleCloseMenu}>
+                <Link to="/login" className="nav__link" onClick={toggleMenu}>
                   Login
                 </Link>
               </li>

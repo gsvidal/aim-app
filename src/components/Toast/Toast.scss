@@ -2,6 +2,7 @@
   position: fixed;
   top: 60px;
   left: 50%;
+  z-index: 2;
   transform: translateX(-50%);
   background-color: var(--toast-in-color);
   color: rgb(0, 0, 0);

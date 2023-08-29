@@ -1,22 +1,49 @@
 .score {
-  width: 300px;
-  height: 350px;
-  padding: 10px;
-  margin: 20px;
+  width: 230px;
+  display: block;
+
+  @media screen and (min-width: 350px) {
+    width: 280px;
+  }
+
+  padding: 25px;
+  margin: 25px;
   background: linear-gradient(
     rgba(189, 255, 238, 0.176),
     rgba(189, 255, 238, 0.176)
   );
 
+  &__title {
+    font-size: 1.8rem;
+    margin: 10px 0;
+  }
+
   &__image-container {
-    background-color: rgb(207, 207, 207);
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 120px;
     height: 120px;
-    border-radius: 3px;
     margin: 10px auto;
   }
 
   &__image {
+    animation: logo-filter-animation 3s linear infinite alternate;
+  }
+
+  @keyframes logo-filter-animation {
+    0% {
+      filter: invert(92%) sepia(11%) saturate(327%) hue-rotate(100deg)
+        brightness(107%) contrast(99%);
+    }
+    30% {
+      filter: invert(98%) sepia(48%) saturate(529%) hue-rotate(82deg)
+        brightness(100%) contrast(101%);
+    }
+    100% {
+      filter: invert(52%) sepia(57%) saturate(438%) hue-rotate(113deg)
+        brightness(90%) contrast(87%);
+    }
   }
 
   &__list {

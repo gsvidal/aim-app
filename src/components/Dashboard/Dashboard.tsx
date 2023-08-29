@@ -2,19 +2,13 @@ import { useEffect, useState } from "react";
 import "./Dashboard.scss";
 import { Loader } from "../Loader/Loader";
 import { Skill } from "../Skill/Skill";
-import {
-  UserDashDataObj,
-  UserDataResponseObj,
-  fetchUserData,
-} from "../../api/adapter";
+import { UserDataResponseObj, fetchUserData } from "../../api/adapter";
 
 type DashboardProps = {
   token: string;
 };
 
 export const Dashboard: React.FC<DashboardProps> = ({ token }) => {
-  const apiUrl = import.meta.env.VITE_API_URL;
-
   const [userDashData, setUserDashData] = useState<UserDataResponseObj>({
     username: "",
     userData: [],
@@ -57,7 +51,6 @@ export const Dashboard: React.FC<DashboardProps> = ({ token }) => {
           <Skill key={userDataItem["skillId"]} userDataItem={userDataItem} />
         ))}
       </section>
-
     </>
   );
 };

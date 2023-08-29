@@ -9,7 +9,7 @@
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
   --main-color-very-light: #e7fef9;
-  --main-color-light: rgb(189, 255, 238);
+  --main-color-light: #bdffee;
   --main-color: #359e81;
   --main-color-dark: rgb(36, 81, 77);
   --secondary-color-light: rgb(241, 241, 255);
@@ -29,7 +29,7 @@ html {
 
 body {
   height: 100vh;
-  background: url("/assets/bg-mobile.jpg") center/cover no-repeat;
+  background: url("/assets/bg-mobile.jpg") center/cover repeat;
 
   @media screen and (min-width: 1280px) {
     background: url("/assets/bg-desktop.jpg") center/cover no-repeat;
