@@ -2,20 +2,24 @@ import { FormEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import useInput from "../../hooks/useInput";
+
 import { Input } from "../Input/Input";
 import { Button } from "../Button/Button";
 import { ErrorPage } from "../ErrorPage/ErrorPage";
-import "./Register.scss";
 import { Loader } from "../Loader/Loader";
+
+import "./Register.scss";
 
 type RegisterProps = {
   setIsUserLoggedIn: (value: boolean) => void;
   setToastMessage: (value: string) => void;
+  setToken: (value: string) => void;
 };
 
 export const Register: React.FC<RegisterProps> = ({
   setIsUserLoggedIn,
   setToastMessage,
+  setToken,
 }) => {
   const usernameInput = useInput("register");
   const passwordInput = useInput("register");
@@ -65,13 +69,14 @@ export const Register: React.FC<RegisterProps> = ({
         // In case registered successfully
         const data = await response.json();
         setToastMessage(data.message); // message: Registered successfully
-        console.log(
-          `received token (register) of ${usernameInput}:`,
-          data["access_token"]
-        );
+        // console.log(
+        //   `received token (register) of ${usernameInput.value}:`,
+        //   data["access_token"]
+        // );
         localStorage.setItem("token", data["access_token"]);
-        setIsUserLoggedIn(true);
+        setToken(data["access_token"]);
         localStorage.setItem("isLoggedIn", "true");
+        setIsUserLoggedIn(true);
         navigate("/");
       } else {
         const error = await response.json();

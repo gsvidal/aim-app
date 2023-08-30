@@ -158,5 +158,8 @@
     &:hover {
       color: var(--secondary-color);
     }
+    @media screen and (max-width: 800px) {
+      color: var(--secondary-color);
+    }
   }
 }

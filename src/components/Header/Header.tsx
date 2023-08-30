@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
-import "./Header.scss";
+
 import { Link } from "react-router-dom";
+
+import "./Header.scss";
 
 type HeaderProps = {
   isUserLoggedIn: boolean;

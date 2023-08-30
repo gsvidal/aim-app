@@ -1,21 +1,25 @@
 .score {
-  width: 230px;
+  min-width: 240px;
+  width: 300px;
   display: block;
-
-  @media screen and (min-width: 350px) {
-    width: 280px;
-  }
-
   padding: 25px;
   margin: 25px;
+  border-radius: 8px;
+  border: 1px solid gray;
   background: linear-gradient(
-    rgba(189, 255, 238, 0.176),
-    rgba(189, 255, 238, 0.176)
+    rgba(189, 255, 238, 0.12),
+    rgba(189, 255, 238, 0.12)
   );
+  backdrop-filter: blur(10px);
 
   &__title {
     font-size: 1.8rem;
     margin: 10px 0;
+  }
+
+  &__subtitle {
+    font-size: 1.4rem;
+    margin: 20px 0 25px;
   }
 
   &__image-container {
@@ -54,9 +58,9 @@
   &__item {
     display: flex;
     justify-content: space-between;
-    width: 120px;
+    width: 160px;
     margin: 0 auto;
     color: var(--secondary-color-light);
-    font-size: 1.4rem;
+    font-size: 1.6rem;
   }
 }

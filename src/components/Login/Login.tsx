@@ -2,11 +2,13 @@ import { FormEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import useInput from "../../hooks/useInput";
-import { Button } from "../Button/Button";
+
 import { Input } from "../Input/Input";
+import { Button } from "../Button/Button";
 import { ErrorPage } from "../ErrorPage/ErrorPage";
-import "./Login.scss";
 import { Loader } from "../Loader/Loader";
+
+import "./Login.scss";
 
 type LoginProps = {
   setIsUserLoggedIn: (value: boolean) => void;
@@ -17,7 +19,7 @@ type LoginProps = {
 export const Login: React.FC<LoginProps> = ({
   setIsUserLoggedIn,
   setToastMessage,
-  setToken
+  setToken,
 }) => {
   const usernameInput = useInput("login");
   const passwordInput = useInput("login");
@@ -63,7 +65,10 @@ export const Login: React.FC<LoginProps> = ({
         // console.log(data)
         setToastMessage(data.message); // message: Logged in successfully
         // console.log(data.message)
-        console.log(`received token (login) of ${usernameInput}:`, data["access_token"]);
+        // console.log(
+        //   `received token (login) of ${usernameInput}:`,
+        //   data["access_token"]
+        // );
         localStorage.setItem("token", data["access_token"]);
         setToken(data["access_token"]);
         localStorage.setItem("isLoggedIn", "true");
@@ -71,7 +76,6 @@ export const Login: React.FC<LoginProps> = ({
         navigate("/");
       } else {
         const error = await response.json();
-        // setError(error); TODO
         setClientError(error.message);
       }
     } catch (error) {

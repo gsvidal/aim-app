@@ -1,13 +1,15 @@
 import { useState, useEffect } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
-import viteLogo from "/vite.svg";
-import "./App.scss";
+
 import { Login } from "./components/Login/Login";
 import { Register } from "./components/Register/Register";
 import { Header } from "./components/Header/Header";
 import { Dashboard } from "./components/Dashboard/Dashboard";
 import { Loader } from "./components/Loader/Loader";
 import { Toast } from "./components/Toast/Toast";
+
+import viteLogo from "/vite.svg";
+import "./App.scss";
 
 function App() {
   const [isUserLoggedIn, setIsUserLoggedIn] = useState<boolean>(false);
@@ -70,6 +72,7 @@ function App() {
                 <Register
                   setIsUserLoggedIn={setIsUserLoggedIn}
                   setToastMessage={setToastMessage}
+                  setToken={setToken}
                 />
               }
             />

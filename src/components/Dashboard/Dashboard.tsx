@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
-import "./Dashboard.scss";
-import { Loader } from "../Loader/Loader";
-import { Skill } from "../Skill/Skill";
+
 import { UserDataResponseObj, fetchUserData } from "../../api/adapter";
+
+import { Skill } from "../Skill/Skill";
+import { Loader } from "../Loader/Loader";
+
+import "./Dashboard.scss";
 
 type DashboardProps = {
   token: string;
@@ -12,6 +15,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ token }) => {
   const [userDashData, setUserDashData] = useState<UserDataResponseObj>({
     username: "",
     userData: [],
+    skillsData: [],
   });
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -23,12 +27,13 @@ export const Dashboard: React.FC<DashboardProps> = ({ token }) => {
   }, [userDashData]);
 
   useEffect(() => {
-    console.log("token dashboard to send to /:", token);
+    // console.log("dashboard token send to /:", token);
     setIsLoading(true);
 
     async function fetchData() {
       const data = await fetchUserData(token);
       if (data) {
+        // console.log(data);
         setUserDashData(data);
         setIsLoading(false);
       }
@@ -41,14 +46,17 @@ export const Dashboard: React.FC<DashboardProps> = ({ token }) => {
     return <Loader />;
   }
 
-  const { username, userData } = userDashData || {};
+  const { username, userData, skillsData } = userDashData || {};
 
   return (
     <>
       <h1>Welcome {username}!</h1>
+      {userData.length === 0 && (
+        <h2>You haven't played any games yet, try one!</h2>
+      )}
       <section className="skill__list">
-        {userData.map((userDataItem) => (
-          <Skill key={userDataItem["skillId"]} userDataItem={userDataItem} />
+        {skillsData.map((skillItem) => (
+          <Skill key={skillItem.id} skillItem={skillItem} userData={userData} />
         ))}
       </section>
     </>

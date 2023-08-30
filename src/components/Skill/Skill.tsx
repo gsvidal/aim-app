@@ -1,11 +1,14 @@
-import { UserDashDataObj } from "../../api/adapter";
+import { SkillsDataObj, UserDashDataObj } from "../../api/adapter";
+
 import { Button } from "../Button/Button";
-import "./Skill.scss";
+
 import reactionTimeUrl from "/assets/reaction-time.svg";
 import aimUrl from "/assets/aim.svg";
+import "./Skill.scss";
 
 type SkillProps = {
-  userDataItem: UserDashDataObj;
+  skillItem: SkillsDataObj;
+  userData: UserDashDataObj[];
 };
 
 type SkillImagesUrlObj = {
@@ -17,49 +20,48 @@ const skillImagesUrl: SkillImagesUrlObj = {
   aim: aimUrl,
 };
 
-type SkillNameObj = {
-  [key: string]: string;
-}
+export const Skill: React.FC<SkillProps> = ({ skillItem, userData }) => {
+  const { name, code, id } = skillItem;
 
-const skillNameDict: SkillNameObj = {
-  "reaction-time": "Reaction Time",
-  aim: "Aim"
-}
+  const currentData = userData.find((item) => item.skillId === id);
 
-export const Skill: React.FC<SkillProps> = ({ userDataItem }) => {
-  const { lastScore, bestScore, avgScore, skillName } = userDataItem;
+  let formattedLastScore = "N/A";
+  let formattedBestScore = "N/A";
+  let formattedAvgScore = "N/A";
 
-  const formattedLastScore = lastScore.toFixed(1) + "ms";
-  const formattedBestScore = bestScore.toFixed(1) + "ms";
-  const formattedAvgScore = avgScore.toFixed(1) + "ms";
+  if (currentData) {
+    formattedLastScore = `${currentData.lastScore.toFixed(1)}ms`;
+    formattedBestScore = `${currentData.bestScore.toFixed(1)}ms`;
+    formattedAvgScore = `${currentData.avgScore.toFixed(1)}ms`;
+  }
 
   return (
     <>
       <article className="score">
-        <h2 className="score__title">{skillNameDict[skillName]}</h2>
+        <h2 className="score__title">{name}</h2>
         <figure className="score__image-container">
           <img
             className="score__image"
-            src={skillImagesUrl[skillName]}
+            src={skillImagesUrl[code]}
             alt="Skill"
             width="100"
             height="100"
           />
         </figure>
 
-        <p>Scores:</p>
-
+        <p className="score__subtitle">Scores:</p>
         <ul className="score__list">
           <li className="score__item">
-            Last: <span>{formattedLastScore}</span>
+            Last : <span>{formattedLastScore}</span>
           </li>
           <li className="score__item">
-            Best: <span>{formattedBestScore}</span>
+            Best : <span>{formattedBestScore}</span>
           </li>
           <li className="score__item">
-            Average: <span>{formattedAvgScore}</span>
+            Average : <span>{formattedAvgScore}</span>
           </li>
         </ul>
+
         <Button type="play">Play</Button>
       </article>
     </>
