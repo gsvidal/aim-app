@@ -86,7 +86,6 @@ export const Header: React.FC<HeaderProps> = ({
       <nav className={`nav ${isMenuOpen ? "open" : ""}`}>
         {isUserLoggedIn && (
           <ul className="nav__menu nav__menu--features">
-            {/* Try an a tag */}
             <li className="nav__item">
               <Link to="/" className="nav__link" onClick={toggleMenu}>
                 My Dashboard

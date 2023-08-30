@@ -4,8 +4,8 @@ type InputProps = {
   name: string;
   label: string;
   type: string;
-  isActive: boolean;
-  error: string;
+  isActive?: boolean;
+  error?: string;
 };
 
 export const Input: React.FC<InputProps> = ({

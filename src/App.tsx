@@ -8,7 +8,7 @@ import { Dashboard } from "./components/Dashboard/Dashboard";
 import { Loader } from "./components/Loader/Loader";
 import { Toast } from "./components/Toast/Toast";
 
-import viteLogo from "/vite.svg";
+// import viteLogo from "/vite.svg";
 import "./App.scss";
 
 function App() {
@@ -21,7 +21,6 @@ function App() {
   const [token, setToken] = useState<string>("");
 
   useEffect(() => {
-    // console.log("app mounted")
     const storedIsLoggedIn = localStorage.getItem("isLoggedIn");
     setIsUserLoggedIn(storedIsLoggedIn === "true");
 

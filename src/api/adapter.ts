@@ -75,6 +75,7 @@ export async function fetchUserData(
     //   console.log(frontendData);
       return frontendData;
     } else {
+      console.log(response)
       console.error("Failed to fetch data from the server");
       return null;
     }
