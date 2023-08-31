@@ -39,6 +39,7 @@ export const ReactionTime: React.FC<ReactionTimeProps> = ({token}) => {
   };
 
   const [gameState, setGameState] = useState<GameStateObj>(initialValues);
+  const [successMsg, setSuccessMsg] = useState<string>("")
 
   // Calculate the average score
   const calculateTotalScore = (attemptsList: number[]): number => {
@@ -171,6 +172,7 @@ export const ReactionTime: React.FC<ReactionTimeProps> = ({token}) => {
         const data = await sendGameData(token);
         if (data) {
           console.log(data.message)
+          setSuccessMsg(data.message);
         } else {
           console.log("Couldn't save your score")
         }
@@ -236,7 +238,7 @@ export const ReactionTime: React.FC<ReactionTimeProps> = ({token}) => {
                   Your total score is:{" "}
                   <span>
                     {totalScore.toFixed(1)} ms{" "}
-                    <span className="saved-msg">Your game has been saved!</span>
+                    <span className="saved-msg">{successMsg}</span>
                   </span>
                 </p>
                 <Button type="game" onClick={handleRestartGame}>

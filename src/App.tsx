@@ -11,28 +11,51 @@ import { Toast } from "./components/Toast/Toast";
 // import viteLogo from "/vite.svg";
 import "./App.scss";
 import { ReactionTime } from "./components/ReactionTime/ReactionTime";
+import { AppDataResponseObj, fetchUserData } from "./api/adapter";
 
 function App() {
   const [isUserLoggedIn, setIsUserLoggedIn] = useState<boolean>(false);
-
   const [toastMessage, setToastMessage] = useState<string>("");
-
   const [isLoading, setIsLoading] = useState<boolean>(true);
-
   const [token, setToken] = useState<string>("");
+
+  const [appData, setAppData] = useState<AppDataResponseObj>({
+    username: "",
+    userData: [],
+    skillsData: [],
+  });
 
   useEffect(() => {
     const storedIsLoggedIn = localStorage.getItem("isLoggedIn");
     setIsUserLoggedIn(storedIsLoggedIn === "true");
 
     const storedToken = localStorage.getItem("token");
-    // console.log("token stored in local inside effect:", storedToken)
+
     if (storedToken) {
       setToken(storedToken);
     }
-
-    setIsLoading(false);
+    if (isUserLoggedIn === true && token) {
+      console.log("both states ok")
+      setIsLoading(false);
+    }
   }, []);
+
+  useEffect(() => {
+    async function fetchData() {
+      const data = await fetchUserData(token);
+      if (data) {
+        setAppData(data);
+      } else {
+        setIsUserLoggedIn(false);
+      }
+      setIsLoading(false);
+    }
+    if (isUserLoggedIn) {
+      setIsLoading(true);
+
+      fetchData();
+    }
+  }, [isUserLoggedIn]);
 
   if (isLoading) {
     return <Loader />;
@@ -54,14 +77,13 @@ function App() {
             <Route
               path="/"
               element={
-                <Dashboard
-                  token={token}
-                  isUserLoggedIn={isUserLoggedIn}
-                  setIsUserLoggedIn={setIsUserLoggedIn}
-                />
+                <Dashboard isUserLoggedIn={isUserLoggedIn} appData={appData} />
               }
             />
-            <Route path="/reaction-time" element={<ReactionTime token={token}/>} />
+            <Route
+              path="/reaction-time"
+              element={<ReactionTime token={token} />}
+            />
           </Routes>
         ) : (
           <Routes>

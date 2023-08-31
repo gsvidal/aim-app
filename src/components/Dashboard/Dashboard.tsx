@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { UserDataResponseObj, fetchUserData } from "../../api/adapter";
+import { AppDataResponseObj, fetchUserData } from "../../api/adapter";
 
 import { Skill } from "../Skill/Skill";
 import { Loader } from "../Loader/Loader";
@@ -9,49 +9,25 @@ import "./Dashboard.scss";
 import { useNavigate } from "react-router-dom";
 
 type DashboardProps = {
-  token: string;
   isUserLoggedIn: boolean;
-  setIsUserLoggedIn: (value: boolean) => void;
+  appData: AppDataResponseObj;
 };
 
 export const Dashboard: React.FC<DashboardProps> = ({
-  token,
   isUserLoggedIn,
-  setIsUserLoggedIn,
+  appData,
 }) => {
-  const [userDashData, setUserDashData] = useState<UserDataResponseObj>({
-    username: "",
-    userData: [],
-    skillsData: [],
-  });
-
   const navigate = useNavigate();
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
-    if (userDashData) {
+    if (appData) {
       setIsLoading(false);
     }
-  }, [userDashData]);
+  }, [appData]);
 
-  useEffect(() => {
-    // console.log("dashboard token send to /:", token);
-    setIsLoading(true);
-
-    async function fetchData() {
-      const data = await fetchUserData(token);
-      if (data) {
-        setUserDashData(data);
-        setIsLoading(false);
-      } else {
-        console.log("user not logged and is going to login");
-        setIsUserLoggedIn(false);
-      }
-    }
-
-    fetchData();
-  }, [token]);
+  const { username, userData, skillsData } = appData;
 
   useEffect(() => {
     if (!isUserLoggedIn) {
@@ -62,8 +38,6 @@ export const Dashboard: React.FC<DashboardProps> = ({
   if (isLoading) {
     return <Loader />;
   }
-
-  const { username, userData, skillsData } = userDashData || {};
 
   return (
     <>
