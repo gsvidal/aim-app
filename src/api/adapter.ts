@@ -1,5 +1,5 @@
-import { error } from "console";
-import { ErrorPage } from "../components/ErrorPage/ErrorPage";
+// import { error } from "console";
+// import { ErrorPage } from "../components/ErrorPage/ErrorPage";
 
 const apiUrl = import.meta.env.VITE_API_URL; // Make sure to use the correct environment variable
 
@@ -59,9 +59,9 @@ function mapBackendToResponse(
   };
 }
 
-export async function fetchUserData(
+export const  fetchUserData = async (
   token: string
-): Promise<UserDataResponseObj | null> {
+): Promise<UserDataResponseObj | null> => {
   try {
     const response = await fetch(`${apiUrl}/`, {
       method: "GET",
@@ -80,17 +80,42 @@ export async function fetchUserData(
     } else {
       const errorResponse = await response.json();
       console.log(errorResponse.msg)
-      // if(errorResponse.msg === "Token has expired") {
-      //   return errorResponse.msg
-        
-      // } else {
-      //   console.error("Failed to fetch data from the server");
-
-      // }
       return null;
     }
   } catch (error) {
     console.error("Error while fetching data:", error);
+    return null;
+  }
+}
+
+type GameDataResponseObj = {
+  code: number;
+  message: string;
+}
+
+// Post reaction time game data
+export const sendGameData = async (token: string): Promise<GameDataResponseObj | null> => {
+  try {
+    const response = await fetch( `${apiUrl}/reaction-time`,{
+      method: "POST",
+      credentials: "include",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+
+    if(response.ok) {
+      const data = await response.json();
+      console.log(data);
+      return data;
+    } else {
+      const errorResponse = await response.json();
+      console.log(errorResponse)
+      console.log("response not ok")
+      return null;
+    }
+  } catch(error) {
+    console.error(error)
     return null;
   }
 }

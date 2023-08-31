@@ -61,7 +61,7 @@ function App() {
                 />
               }
             />
-            <Route path="/reaction-time" element={<ReactionTime />} />
+            <Route path="/reaction-time" element={<ReactionTime token={token}/>} />
           </Routes>
         ) : (
           <Routes>
