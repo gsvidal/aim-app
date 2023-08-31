@@ -6,17 +6,26 @@ import { Skill } from "../Skill/Skill";
 import { Loader } from "../Loader/Loader";
 
 import "./Dashboard.scss";
+import { useNavigate } from "react-router-dom";
 
 type DashboardProps = {
   token: string;
+  isUserLoggedIn: boolean;
+  setIsUserLoggedIn: (value: boolean) => void;
 };
 
-export const Dashboard: React.FC<DashboardProps> = ({ token }) => {
+export const Dashboard: React.FC<DashboardProps> = ({
+  token,
+  isUserLoggedIn,
+  setIsUserLoggedIn,
+}) => {
   const [userDashData, setUserDashData] = useState<UserDataResponseObj>({
     username: "",
     userData: [],
     skillsData: [],
   });
+
+  const navigate = useNavigate();
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -33,14 +42,22 @@ export const Dashboard: React.FC<DashboardProps> = ({ token }) => {
     async function fetchData() {
       const data = await fetchUserData(token);
       if (data) {
-        // console.log(data);
         setUserDashData(data);
         setIsLoading(false);
+      } else {
+        console.log("user not logged and is going to login");
+        setIsUserLoggedIn(false);
       }
     }
 
     fetchData();
   }, [token]);
+
+  useEffect(() => {
+    if (!isUserLoggedIn) {
+      navigate("/");
+    }
+  }, [isUserLoggedIn]);
 
   if (isLoading) {
     return <Loader />;

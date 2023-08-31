@@ -10,6 +10,7 @@ import { Toast } from "./components/Toast/Toast";
 
 // import viteLogo from "/vite.svg";
 import "./App.scss";
+import { ReactionTime } from "./components/ReactionTime/ReactionTime";
 
 function App() {
   const [isUserLoggedIn, setIsUserLoggedIn] = useState<boolean>(false);
@@ -50,7 +51,17 @@ function App() {
       <main>
         {isUserLoggedIn ? (
           <Routes>
-            <Route path="/" element={<Dashboard token={token} />} />
+            <Route
+              path="/"
+              element={
+                <Dashboard
+                  token={token}
+                  isUserLoggedIn={isUserLoggedIn}
+                  setIsUserLoggedIn={setIsUserLoggedIn}
+                />
+              }
+            />
+            <Route path="/reaction-time" element={<ReactionTime />} />
           </Routes>
         ) : (
           <Routes>

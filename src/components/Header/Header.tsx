@@ -92,7 +92,11 @@ export const Header: React.FC<HeaderProps> = ({
               </Link>
             </li>
             <li className="nav__item">
-              <Link to="/rt" className="nav__link" onClick={toggleMenu}>
+              <Link
+                to="/reaction-time"
+                className="nav__link"
+                onClick={toggleMenu}
+              >
                 RT
               </Link>
             </li>

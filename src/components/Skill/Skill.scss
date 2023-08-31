@@ -1,16 +1,12 @@
 .score {
   min-width: 240px;
   width: 300px;
-  display: block;
   padding: 25px;
   margin: 25px;
-  border-radius: 8px;
-  border: 1px solid gray;
   background: linear-gradient(
     rgba(189, 255, 238, 0.12),
     rgba(189, 255, 238, 0.12)
-  );
-  backdrop-filter: blur(10px);
+  ) !important;
 
   &__title {
     font-size: 1.8rem;

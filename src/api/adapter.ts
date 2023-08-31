@@ -1,3 +1,6 @@
+import { error } from "console";
+import { ErrorPage } from "../components/ErrorPage/ErrorPage";
+
 const apiUrl = import.meta.env.VITE_API_URL; // Make sure to use the correct environment variable
 
 export interface UserDataResponseObj {
@@ -75,8 +78,15 @@ export async function fetchUserData(
     //   console.log(frontendData);
       return frontendData;
     } else {
-      console.log(response)
-      console.error("Failed to fetch data from the server");
+      const errorResponse = await response.json();
+      console.log(errorResponse.msg)
+      // if(errorResponse.msg === "Token has expired") {
+      //   return errorResponse.msg
+        
+      // } else {
+      //   console.error("Failed to fetch data from the server");
+
+      // }
       return null;
     }
   } catch (error) {

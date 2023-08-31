@@ -5,6 +5,7 @@ import { Button } from "../Button/Button";
 import reactionTimeUrl from "/assets/reaction-time.svg";
 import aimUrl from "/assets/aim.svg";
 import "./Skill.scss";
+import { Link } from "react-router-dom";
 
 type SkillProps = {
   skillItem: SkillsDataObj;
@@ -37,7 +38,7 @@ export const Skill: React.FC<SkillProps> = ({ skillItem, userData }) => {
 
   return (
     <>
-      <article className="score">
+      <article className="score glass-container">
         <h2 className="score__title">{name}</h2>
         <figure className="score__image-container">
           <img
@@ -62,7 +63,9 @@ export const Skill: React.FC<SkillProps> = ({ skillItem, userData }) => {
           </li>
         </ul>
 
-        <Button type="play">Play</Button>
+        <Link to={`/${code}`}>
+          <Button type="game"> Play</Button>
+        </Link>
       </article>
     </>
   );

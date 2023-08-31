@@ -103,7 +103,7 @@ export const AuthForm: React.FC<AuthFormProps> = ({
   return (
     <>
       {error.message == "" ? (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="glass-container">
           <fieldset>
             <legend>{formType}</legend>
             <Input
