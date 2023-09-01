@@ -10,6 +10,7 @@ type HeaderProps = {
   setToastMessage: (value: string) => void;
   token: string;
   setToken: (value: string) => void;
+  username: string;
 };
 
 export const Header: React.FC<HeaderProps> = ({
@@ -18,8 +19,14 @@ export const Header: React.FC<HeaderProps> = ({
   setToastMessage,
   token,
   setToken,
+  username,
 }) => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+  const [isUserMenuOpen, setIsUserMenuOpen] = useState<boolean>(false);
+
+  const toggleUserMenu = () => {
+    setIsUserMenuOpen(!isUserMenuOpen);
+  };
 
   const toggleMenu = () => {
     setIsMenuOpen((isMenuOpen) => !isMenuOpen);
@@ -114,11 +121,30 @@ export const Header: React.FC<HeaderProps> = ({
         )}
         <ul className="nav__menu nav__menu--auth">
           {isUserLoggedIn ? (
-            <li className="nav__item" onClick={handleLogout}>
-              <Link to="/" className="nav__link" onClick={toggleMenu}>
-                Logout
-              </Link>
-            </li>
+            <div className="nav__username-container">
+              <p className="nav__username" onClick={toggleUserMenu}>{username}</p>
+              <ul className={`nav__username-list ${
+                    isUserMenuOpen ? "active" : ""
+                  }`} >
+                <li
+                  className="nav__item nav__username-item"
+                >
+                  <Link to="/" className="nav__link" onClick={toggleUserMenu}>
+                    Theme
+                  </Link>
+                  <input type="color" className="input-theme"/>
+                  <p className="input-text">sss</p>
+                </li>
+                <li
+                  className="nav__item nav__username-item"
+                  onClick={handleLogout}
+                >
+                  <Link to="/" className="nav__link" onClick={toggleMenu}>
+                    Logout
+                  </Link>
+                </li>
+              </ul>
+            </div>
           ) : (
             <>
               <li className="nav__item">

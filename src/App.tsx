@@ -26,6 +26,8 @@ function App() {
     skillsData: [],
   });
 
+  const {username} = appData;
+
   useEffect(() => {
     setIsLoading(false);
     const storedIsLoggedIn = localStorage.getItem("isLoggedIn");
@@ -76,6 +78,7 @@ function App() {
         setToastMessage={setToastMessage}
         token={token}
         setToken={setToken}
+        username={username}
       />
       <main>
         {isUserLoggedIn ? (
