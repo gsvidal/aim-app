@@ -24,7 +24,7 @@ type ReactionTimeProps = {
   token: string;
 };
 
-export const ReactionTime: React.FC<ReactionTimeProps> = ({token}) => {
+export const ReactionTime: React.FC<ReactionTimeProps> = ({ token }) => {
   const initialValues = {
     hasGameStarted: false,
     hasColorChanged: false,
@@ -39,7 +39,12 @@ export const ReactionTime: React.FC<ReactionTimeProps> = ({token}) => {
   };
 
   const [gameState, setGameState] = useState<GameStateObj>(initialValues);
-  const [successMsg, setSuccessMsg] = useState<string>("")
+  const [saveStatusMsg, setSaveStatusMsg] = useState({
+    success: "",
+    error: "",
+  });
+  // const [successMsg, setSuccessMsg] = useState<string>("");
+  // const [errorMsg, setErrorMsg] = useState<string>("");
 
   // Calculate the average score
   const calculateTotalScore = (attemptsList: number[]): number => {
@@ -166,18 +171,28 @@ export const ReactionTime: React.FC<ReactionTimeProps> = ({token}) => {
 
   useEffect(() => {
     if (gameState.totalScore > 0) {
-      console.log("sending data to server");
-      console.log("data:", gameState.totalScore);
+      const dataBody = {
+        skill: "reaction-time",
+        score: parseFloat(gameState.totalScore.toFixed(1)),
+        token,
+      };
+
       async function sendData() {
-        const data = await sendGameData(token);
+        const data = await sendGameData(dataBody);
+        console.log("data: ", data);
         if (data) {
-          console.log(data.message)
-          setSuccessMsg(data.message);
+          console.log("msg from server: ", data.message);
+          setSaveStatusMsg({
+            ...saveStatusMsg,
+            success: data.message,
+          });
         } else {
-          console.log("Couldn't save your score")
+          setSaveStatusMsg({
+            ...saveStatusMsg,
+            error: "Couldn't save your score",
+          });
         }
       }
-  
       sendData();
     }
   }, [gameState.totalScore]);
@@ -238,7 +253,10 @@ export const ReactionTime: React.FC<ReactionTimeProps> = ({token}) => {
                   Your total score is:{" "}
                   <span>
                     {totalScore.toFixed(1)} ms{" "}
-                    <span className="saved-msg">{successMsg}</span>
+                    <span className="saved-msg">{saveStatusMsg.success}</span>
+                    <span className="saved-msg saved-msg--error">
+                      {saveStatusMsg.error}
+                    </span>
                   </span>
                 </p>
                 <Button type="game" onClick={handleRestartGame}>

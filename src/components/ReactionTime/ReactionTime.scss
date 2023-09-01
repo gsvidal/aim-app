@@ -49,8 +49,8 @@
       color: white;
     }
 
-    &.ready {
-      top: 50px;
+    &.last {
+      top: 70px;
     }
 
     &.fade-out {
@@ -61,6 +61,10 @@
     .saved-msg {
       margin-top: 10px;
       color: var(--secondary-color);
+
+      &--error {
+        color: rgb(193, 60, 60);
+      }
     }
   }
 

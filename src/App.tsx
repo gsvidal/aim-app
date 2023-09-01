@@ -12,6 +12,7 @@ import { Toast } from "./components/Toast/Toast";
 import "./App.scss";
 import { ReactionTime } from "./components/ReactionTime/ReactionTime";
 import { AppDataResponseObj, fetchUserData } from "./api/adapter";
+import { NotFound } from "./components/NotFound/NotFound";
 
 function App() {
   const [isUserLoggedIn, setIsUserLoggedIn] = useState<boolean>(false);
@@ -26,17 +27,16 @@ function App() {
   });
 
   useEffect(() => {
+    setIsLoading(false);
     const storedIsLoggedIn = localStorage.getItem("isLoggedIn");
     setIsUserLoggedIn(storedIsLoggedIn === "true");
 
     const storedToken = localStorage.getItem("token");
-
     if (storedToken) {
+      console.log("there's a token");
       setToken(storedToken);
-    }
-    if (isUserLoggedIn === true && token) {
-      console.log("both states ok")
-      setIsLoading(false);
+    } else {
+      console.log("there's not a token");
     }
   }, []);
 
@@ -44,18 +44,24 @@ function App() {
     async function fetchData() {
       const data = await fetchUserData(token);
       if (data) {
+        console.log("got data from server");
         setAppData(data);
       } else {
+        localStorage.setItem("token", "");
+        setToken("");
+        localStorage.setItem("isLoggedIn", "false");
         setIsUserLoggedIn(false);
       }
+      // console.log("setIsLoading false");
       setIsLoading(false);
     }
-    if (isUserLoggedIn) {
+    if (isUserLoggedIn && token) {
+      console.log("isUserLoggedIn");
       setIsLoading(true);
-
       fetchData();
     }
-  }, [isUserLoggedIn]);
+    console.log(localStorage);
+  }, [isUserLoggedIn, token]);
 
   if (isLoading) {
     return <Loader />;
@@ -84,6 +90,7 @@ function App() {
               path="/reaction-time"
               element={<ReactionTime token={token} />}
             />
+            
           </Routes>
         ) : (
           <Routes>
@@ -106,6 +113,12 @@ function App() {
                   setToastMessage={setToastMessage}
                   setToken={setToken}
                 />
+              }
+            />
+            <Route
+              path="*"
+              element={
+                <NotFound />
               }
             />
           </Routes>

@@ -1,5 +1,4 @@
-// import { error } from "console";
-// import { ErrorPage } from "../components/ErrorPage/ErrorPage";
+import { ErrorPage } from "../components/ErrorPage/ErrorPage";
 
 const apiUrl = import.meta.env.VITE_API_URL; // Make sure to use the correct environment variable
 
@@ -8,6 +7,10 @@ export interface AppDataResponseObj {
   userData: UserDashDataObj[];
   skillsData: SkillsDataObj[];
 }
+
+// export type AppErrorResponseObj = {
+//   message: string;
+// }
 
 export type UserDashDataObj = {
   username: string;
@@ -94,27 +97,37 @@ type GameDataResponseObj = {
   message: string;
 };
 
+type dataBodyObj = {
+  skill: string;
+  score: number;
+  token: string;
+};
+
 // Post reaction time game data
 export const sendGameData = async (
-  token: string
+  dataBody: dataBodyObj
 ): Promise<GameDataResponseObj | null> => {
   try {
     const response = await fetch(`${apiUrl}/reaction-time`, {
       method: "POST",
-      credentials: "include",
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${dataBody.token}`,
+        "Content-Type": "application/json",
       },
+      body: JSON.stringify({
+        skill_code: dataBody.skill,
+        score: dataBody.score,
+      }),
     });
 
     if (response.ok) {
       const data = await response.json();
       console.log(data);
+      console.log(data.value);
       return data;
     } else {
       const errorResponse = await response.json();
       console.log(errorResponse);
-      console.log("response not ok");
       return null;
     }
   } catch (error) {

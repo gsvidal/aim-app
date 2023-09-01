@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { AppDataResponseObj, fetchUserData } from "../../api/adapter";
+import { AppDataResponseObj } from "../../api/adapter";
 
 import { Skill } from "../Skill/Skill";
 import { Loader } from "../Loader/Loader";
