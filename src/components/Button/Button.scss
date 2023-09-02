@@ -13,6 +13,7 @@
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
+  text-transform: capitalize;
 
   &:hover {
     opacity: 0.9;

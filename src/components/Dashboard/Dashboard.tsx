@@ -11,11 +11,13 @@ import { useNavigate } from "react-router-dom";
 type DashboardProps = {
   isUserLoggedIn: boolean;
   appData: AppDataResponseObj;
+  userTheme: string;
 };
 
 export const Dashboard: React.FC<DashboardProps> = ({
   isUserLoggedIn,
   appData,
+  userTheme
 }) => {
   const navigate = useNavigate();
 
@@ -47,7 +49,12 @@ export const Dashboard: React.FC<DashboardProps> = ({
       )}
       <section className="skill__list">
         {skillsData.map((skillItem) => (
-          <Skill key={skillItem.id} skillItem={skillItem} userData={userData} />
+          <Skill
+            key={skillItem.id}
+            skillItem={skillItem}
+            userData={userData}
+            userTheme={userTheme}
+          />
         ))}
       </section>
     </>
