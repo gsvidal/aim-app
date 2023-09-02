@@ -243,6 +243,12 @@
   .header {
     &__menu-toggle {
       display: block;
+
+      &.open {
+        position: fixed;
+        top: 58px;
+        right: 30px;
+      }
     }
 
     .backdrop {
@@ -333,7 +339,7 @@
         .input-theme {
           display: none;
           position: absolute;
-          top: 360px;
+          top: 366px;
           right: 245px;
 
           &.activate {
