@@ -12,15 +12,66 @@
     align-items: center;
     text-decoration: none;
 
-    &-img {
-      margin-right: 10px;
+    &-target {
+      width: 50px;
+      height: 50px;
+      margin-right: 15px;
+      background-color: transparent;
+      position: relative;
+    }
+
+    .circle {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      border: 2px solid #000;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    .inner-circle {
+      width: 70%;
+      height: 70%;
+      border-radius: 50%;
+      border: 2px solid #000;
+      position: absolute;
+      top: 15%;
+      left: 15%;
+    }
+
+    .center-circle {
+      width: 25%;
+      height: 25%;
+      border-radius: 50%;
+      border: 3px solid #000;
+      position: absolute;
+      top: 37.5%;
+      left: 36.6%;
+    }
+
+    .crosshair {
+      width: 110%;
+      height: 8%;
+      background-color: #000;
+      position: absolute;
+      top: 46%;
+      left: -5%;
+    }
+
+    .crosshair.horizontal {
+      width: 8%;
+      height: 110%;
+      position: absolute;
+      top: -5%;
+      left: 45%;
     }
 
     &-title {
       color: var(--main-color);
       font-size: 2rem;
       font-weight: bold;
-      margin-bottom: 4px;
+      margin-bottom: 2px;
     }
   }
 
@@ -78,7 +129,7 @@
     &--features {
       position: absolute;
       top: 15px;
-      left: 200px;
+      left: 160px;
     }
   }
 
@@ -99,7 +150,7 @@
 
   &__username {
     display: block;
-    margin: 4px 0;
+    margin: 5px 0 4px;
     line-height: 1.6rem;
     font-size: 1.4rem;
     font-weight: bold;
@@ -112,20 +163,42 @@
     }
 
     &-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
       position: absolute;
       top: 13px;
       right: 50px;
+      z-index: 2;
+
+      .chevron-icon {
+        display: inline-block;
+        width: 15px;
+        height: 10px;
+        margin-top: 5px;
+        margin-right: 2px;
+        background: url("/assets/chevron-up.svg") center/cover no-repeat;
+        transform: rotate(180deg);
+        transition: all 0.15s linear;
+
+        &.open {
+          transform: rotateY(180deg);
+        }
+      }
     }
 
     &-list {
       display: none;
       position: absolute;
       top: 35px;
-      right: -35px;
+      right: 0px;
+      width: 120px;
       padding: 10px 20px;
-      background-color: rgba(255, 255, 255, 0.156);
+      background-color: #482d45;
       border-radius: 4px;
       list-style: none;
+      box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
+        rgba(0, 0, 0, 0.22) 0px 15px 12px;
 
       &.active {
         display: flex;
@@ -135,11 +208,17 @@
     }
 
     &-item {
-      margin: 5px 0;
+      margin: 7px 0;
       .input-theme {
-        position: relative;
-        top: 0;
-        right: 100px;
+        display: none;
+        position: absolute;
+        top: 15px;
+        right: 130px;
+        cursor: pointer;
+
+        &.activate {
+          display: block;
+        }
       }
     }
   }
@@ -215,15 +294,41 @@
     }
 
     &__username {
-      display: none;
+      color: var(--secondary-color-dark);
+
+      &:hover {
+        color: var(--secondary-color-dark);
+      }
+      cursor: default;
+
       &-container {
         position: static;
+        flex-direction: column;
+
+        .chevron-icon {
+          display: none;
+        }
       }
       &-list {
         display: flex;
         flex-direction: column;
         justify-content: space-around;
         position: static;
+        width: initial;
+        background-color: transparent;
+        box-shadow: none;
+      }
+      &-item {
+        .input-theme {
+          display: none;
+          position: absolute;
+          top: 360px;
+          right: 245px;
+
+          &.activate {
+            display: block;
+          }
+        }
       }
     }
   }

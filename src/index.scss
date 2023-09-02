@@ -31,8 +31,8 @@ body {
   height: 100vh;
   background: url("/assets/bg-mobile.jpg") center/cover repeat;
 
-  @media screen and (min-width: 1280px) {
-    background: url("/assets/bg-desktop.jpg") center/cover no-repeat;
+  @media screen and (min-width: 1000px) {
+    background: url("/assets/bg-desktop.jpg") center/cover repeat;
   }
 }
 

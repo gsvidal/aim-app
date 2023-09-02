@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 
 import { Link } from "react-router-dom";
 
@@ -11,6 +11,8 @@ type HeaderProps = {
   token: string;
   setToken: (value: string) => void;
   username: string;
+  userTheme: string;
+  setUserTheme: (value: string) => void;
 };
 
 export const Header: React.FC<HeaderProps> = ({
@@ -20,9 +22,24 @@ export const Header: React.FC<HeaderProps> = ({
   token,
   setToken,
   username,
+  userTheme,
+  setUserTheme,
 }) => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState<boolean>(false);
+  const [isThemeOpen, setIsThemeOpen] = useState<boolean>(false);
+
+  const handleSaveTheme = () => {
+    localStorage.setItem("colorTheme", userTheme);
+  };
+
+  const handleSelectTheme = (event: ChangeEvent<HTMLInputElement>) => {
+    setUserTheme(event.target.value);
+  };
+
+  const toggleThemeMenu = () => {
+    setIsThemeOpen(!isThemeOpen);
+  };
 
   const toggleUserMenu = () => {
     setIsUserMenuOpen(!isUserMenuOpen);
@@ -37,6 +54,7 @@ export const Header: React.FC<HeaderProps> = ({
     const handleResize = () => {
       if (window.innerWidth >= 800) {
         setIsMenuOpen(false);
+        setIsUserMenuOpen(false);
       }
     };
 
@@ -52,6 +70,8 @@ export const Header: React.FC<HeaderProps> = ({
     // Logout frontend
     localStorage.setItem("isLoggedIn", "false");
     setIsUserLoggedIn(false);
+    // localStorage.setItem("colorTheme", userTheme)
+    setUserTheme("#359e81");
 
     // Logout backend
     const response = await fetch(`${apiUrl}/logout`, {
@@ -67,16 +87,30 @@ export const Header: React.FC<HeaderProps> = ({
     setToastMessage(data.message); // message: Logged out successfully
   };
 
+  const colorTheme = {
+    color: userTheme,
+  };
+
+  const logoCircleColorTheme = {
+    borderColor: userTheme,
+  };
+  const logoCrosshairColorTheme = {
+    backgroundColor: userTheme,
+  };
+
   return (
     <header className="header">
       <a href="/" className="header__logo">
-        <img
-          src="/assets/aim-logo-trans.png"
-          alt="Aim App"
-          className="header__logo-img"
-          width="50"
-        />
-        <p className="header__logo-title">Aim App</p>
+        <div className="header__logo-target">
+          <div className="circle" style={logoCircleColorTheme}></div>
+          <div className="inner-circle" style={logoCircleColorTheme}></div>
+          <div className="center-circle" style={logoCircleColorTheme}></div>
+          <div className="crosshair" style={logoCrosshairColorTheme}></div>
+          <div className="crosshair horizontal" style={logoCrosshairColorTheme}></div>
+        </div>
+        <p className="header__logo-title" style={colorTheme}>
+          Aim App
+        </p>
       </a>
       <section
         className={`header__menu-toggle ${isMenuOpen ? "open" : ""}`}
@@ -95,7 +129,7 @@ export const Header: React.FC<HeaderProps> = ({
           <ul className="nav__menu nav__menu--features">
             <li className="nav__item">
               <Link to="/" className="nav__link" onClick={toggleMenu}>
-                My Dashboard
+                Dashboard
               </Link>
             </li>
             <li className="nav__item">
@@ -104,7 +138,7 @@ export const Header: React.FC<HeaderProps> = ({
                 className="nav__link"
                 onClick={toggleMenu}
               >
-                RT
+                Reaction Time
               </Link>
             </li>
             <li className="nav__item">
@@ -122,18 +156,26 @@ export const Header: React.FC<HeaderProps> = ({
         <ul className="nav__menu nav__menu--auth">
           {isUserLoggedIn ? (
             <div className="nav__username-container">
-              <p className="nav__username" onClick={toggleUserMenu}>{username}</p>
-              <ul className={`nav__username-list ${
-                    isUserMenuOpen ? "active" : ""
-                  }`} >
-                <li
-                  className="nav__item nav__username-item"
-                >
-                  <Link to="/" className="nav__link" onClick={toggleUserMenu}>
-                    Theme
+              <span className={`chevron-icon ${isUserMenuOpen ? "open": ""}`}></span>
+              <p className="nav__username" onClick={toggleUserMenu}>
+                {username}
+              </p>
+              <ul
+                className={`nav__username-list ${
+                  isUserMenuOpen ? "active" : ""
+                }`}
+              >
+                <li className="nav__item nav__username-item">
+                  <Link to="/" className="nav__link" onClick={toggleThemeMenu}>
+                    My theme
                   </Link>
-                  <input type="color" className="input-theme"/>
-                  <p className="input-text">sss</p>
+                  <input
+                    type="color"
+                    className={`input-theme ${isThemeOpen ? "activate" : ""}`}
+                    onChange={handleSelectTheme}
+                    onBlur={handleSaveTheme}
+                    value={userTheme}
+                  />
                 </li>
                 <li
                   className="nav__item nav__username-item"

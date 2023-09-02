@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 type SkillProps = {
   skillItem: SkillsDataObj;
   userData: UserDashDataObj[];
+  userTheme: string;
 };
 
 type SkillImagesUrlObj = {
@@ -21,7 +22,11 @@ const skillImagesUrl: SkillImagesUrlObj = {
   aim: aimUrl,
 };
 
-export const Skill: React.FC<SkillProps> = ({ skillItem, userData }) => {
+export const Skill: React.FC<SkillProps> = ({
+  skillItem,
+  userData,
+  userTheme,
+}) => {
   const { name, code, id } = skillItem;
 
   const currentData = userData.find((item) => item.skillId === id);
@@ -36,9 +41,28 @@ export const Skill: React.FC<SkillProps> = ({ skillItem, userData }) => {
     formattedAvgScore = `${currentData.avgScore.toFixed(1)}ms`;
   }
 
+  function hexToRgb(hex: string) {
+    // Remove the '#' if it's included
+    hex = hex.replace(/^#/, "");
+
+    // Parse the hex value into its RGB components
+    const r = parseInt(hex.substring(0, 2), 16);
+    const g = parseInt(hex.substring(2, 4), 16);
+    const b = parseInt(hex.substring(4, 6), 16);
+
+    // Return the RGB values as a string
+    return `${r}, ${g}, ${b}`;
+  }
+
+  const result = hexToRgb(userTheme);
+
+  const colorTheme = {
+    background: `linear-gradient(rgba(${result}, .12),rgba(${result}, .12))`,
+  };
+
   return (
     <>
-      <article className="score glass-container">
+      <article className="score glass-container" style={colorTheme}>
         <h2 className="score__title">{name}</h2>
         <figure className="score__image-container">
           <img
@@ -64,7 +88,7 @@ export const Skill: React.FC<SkillProps> = ({ skillItem, userData }) => {
         </ul>
 
         <Link to={`/${code}`}>
-          <Button type="game"> Play</Button>
+          <Button type="play"> Play</Button>
         </Link>
       </article>
     </>

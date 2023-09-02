@@ -19,6 +19,7 @@ function App() {
   const [toastMessage, setToastMessage] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [token, setToken] = useState<string>("");
+  const [userTheme, setUserTheme] = useState<string>("#359e81");
 
   const [appData, setAppData] = useState<AppDataResponseObj>({
     username: "",
@@ -26,10 +27,11 @@ function App() {
     skillsData: [],
   });
 
-  const {username} = appData;
+  const { username } = appData;
 
   useEffect(() => {
     setIsLoading(false);
+    // Load from local storage to states
     const storedIsLoggedIn = localStorage.getItem("isLoggedIn");
     setIsUserLoggedIn(storedIsLoggedIn === "true");
 
@@ -54,15 +56,16 @@ function App() {
         localStorage.setItem("isLoggedIn", "false");
         setIsUserLoggedIn(false);
       }
-      // console.log("setIsLoading false");
       setIsLoading(false);
     }
     if (isUserLoggedIn && token) {
       console.log("isUserLoggedIn");
       setIsLoading(true);
       fetchData();
+      const storedTheme = localStorage.getItem("colorTheme");
+      storedTheme && setUserTheme(storedTheme);
+      console.log(localStorage);
     }
-    console.log(localStorage);
   }, [isUserLoggedIn, token]);
 
   if (isLoading) {
@@ -79,6 +82,8 @@ function App() {
         token={token}
         setToken={setToken}
         username={username}
+        userTheme={userTheme}
+        setUserTheme={setUserTheme}
       />
       <main>
         {isUserLoggedIn ? (
@@ -86,14 +91,17 @@ function App() {
             <Route
               path="/"
               element={
-                <Dashboard isUserLoggedIn={isUserLoggedIn} appData={appData} />
+                <Dashboard
+                  isUserLoggedIn={isUserLoggedIn}
+                  appData={appData}
+                  userTheme={userTheme}
+                />
               }
             />
             <Route
               path="/reaction-time"
               element={<ReactionTime token={token} />}
             />
-            
           </Routes>
         ) : (
           <Routes>
@@ -118,12 +126,7 @@ function App() {
                 />
               }
             />
-            <Route
-              path="*"
-              element={
-                <NotFound />
-              }
-            />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         )}
       </main>
