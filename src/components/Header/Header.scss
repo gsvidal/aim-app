@@ -170,6 +170,13 @@
       top: 13px;
       right: 50px;
       z-index: 2;
+    }
+
+    &-mini-container {
+      &:hover {
+        filter: brightness(0) saturate(100%) invert(76%) sepia(54%)
+          saturate(6557%) hue-rotate(212deg) brightness(105%) contrast(101%);
+      }
 
       .chevron-icon {
         display: inline-block;
@@ -179,12 +186,23 @@
         margin-right: 2px;
         background: url("/assets/chevron-up.svg") center/cover no-repeat;
         transform: rotate(180deg);
-        transition: all 0.15s linear;
+        transition: rotate 0.15s linear;
+        cursor: pointer;
+
+        &:hover {
+          filter: inherit;
+        }
 
         &.open {
           transform: rotateY(180deg);
         }
       }
+    }
+
+    &-mini-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
     &-list {
@@ -294,12 +312,8 @@
     }
 
     &__username {
-      color: var(--secondary-color-dark);
-
-      &:hover {
-        color: var(--secondary-color-dark);
-      }
       cursor: default;
+      color: var(--secondary-color);
 
       &-container {
         position: static;

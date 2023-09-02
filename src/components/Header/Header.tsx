@@ -106,7 +106,10 @@ export const Header: React.FC<HeaderProps> = ({
           <div className="inner-circle" style={logoCircleColorTheme}></div>
           <div className="center-circle" style={logoCircleColorTheme}></div>
           <div className="crosshair" style={logoCrosshairColorTheme}></div>
-          <div className="crosshair horizontal" style={logoCrosshairColorTheme}></div>
+          <div
+            className="crosshair horizontal"
+            style={logoCrosshairColorTheme}
+          ></div>
         </div>
         <p className="header__logo-title" style={colorTheme}>
           Aim App
@@ -156,10 +159,16 @@ export const Header: React.FC<HeaderProps> = ({
         <ul className="nav__menu nav__menu--auth">
           {isUserLoggedIn ? (
             <div className="nav__username-container">
-              <span className={`chevron-icon ${isUserMenuOpen ? "open": ""}`}></span>
-              <p className="nav__username" onClick={toggleUserMenu}>
-                {username}
-              </p>
+              <div
+                className="nav__username-mini-container"
+                onClick={toggleUserMenu}
+              >
+                <span
+                  className={`chevron-icon ${isUserMenuOpen ? "open" : ""}`}
+                ></span>
+                <p className="nav__username">{username}</p>
+              </div>
+
               <ul
                 className={`nav__username-list ${
                   isUserMenuOpen ? "active" : ""
