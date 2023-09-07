@@ -18,12 +18,12 @@ export const Button: React.FC<ButtonProps> = ({
   onClick,
 }) => {
   const [playSound] = useSound(clickSound);
-  // put disables={!isButt} when logs in correctly and get success message
   return (
     <>
       <button
         className={`button button--${type}`}
         onClick={type === "play" ? playSound : onClick}
+        disabled={children==="register" && !isButtonActive}
       >
         {children}
       </button>

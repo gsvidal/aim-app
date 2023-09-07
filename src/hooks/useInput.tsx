@@ -30,21 +30,21 @@ const useInput = (initialValue: string) => {
       setError("");
     }
 
-    // if (initialValue === "register") {
-    //   if (name !== "username") {
-    //     if (value.length < 6) {
-    //       setError("This field must have at least 6 characters");
-    //     } else if (!/(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])/.test(value)) {
-    //       setError(
-    //         "Password must contain at least one uppercase letter, one number, and one symbol"
-    //       );
-    //     } else {
-    //       setError("");
-    //     }
-    //   }
-    // } else {
-    //   setError("");
-    // }
+    if (initialValue === "register") {
+      if (name !== "username") {
+        if (value.length < 6) {
+          setError("This field must have at least 6 characters");
+        } else if (!/(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_\-+=<>?/[\]{}])/.test(value)) {
+          setError(
+            "Password must contain at least one uppercase letter, one number, and one symbol"
+          );
+        } else {
+          setError("");
+        }
+      }
+    } else {
+      setError("");
+    }
   };
 
   return {

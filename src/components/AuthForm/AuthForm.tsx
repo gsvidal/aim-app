@@ -31,7 +31,7 @@ export const AuthForm: React.FC<AuthFormProps> = ({
   const [isButtonActive, setIsButtonActive] = useState<boolean>(false);
 
   const [error, setError] = useState({ code: "", message: "" });
-  const [clientError, setClientError] = useState<string>("");
+  const [backendError, setBackendError] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const navigate = useNavigate();
@@ -82,7 +82,7 @@ export const AuthForm: React.FC<AuthFormProps> = ({
         navigate("/");
       } else {
         const error = await response.json();
-        setClientError(error.message);
+        setBackendError(error.message);
       }
     } catch (error) {
       setError({ code: "400", message: "An error ocurred" });
@@ -124,7 +124,7 @@ export const AuthForm: React.FC<AuthFormProps> = ({
             )}
 
             <Button isButtonActive={isButtonActive}>{formType}</Button>
-            {clientError && <p className="client-error">{clientError}</p>}
+            {backendError && <p className="backend-error">{backendError}</p>}
           </fieldset>
         </form>
       ) : (
