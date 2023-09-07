@@ -83,7 +83,7 @@ export const fetchUserData = async (
       return frontendData;
     } else {
       const errorResponse = await response.json();
-      console.log(errorResponse.msg);
+      // console.log(errorResponse.msg);
       return null;
     }
   } catch (error) {

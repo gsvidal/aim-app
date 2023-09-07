@@ -3,6 +3,7 @@ import { ChangeEvent, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import "./Header.scss";
+import { Target } from "../Target/Target";
 
 type HeaderProps = {
   isUserLoggedIn: boolean;
@@ -91,26 +92,10 @@ export const Header: React.FC<HeaderProps> = ({
     color: userTheme,
   };
 
-  const logoCircleColorTheme = {
-    borderColor: userTheme,
-  };
-  const logoCrosshairColorTheme = {
-    backgroundColor: userTheme,
-  };
-
   return (
     <header className="header">
       <a href="/" className="header__logo">
-        <div className="header__logo-target">
-          <div className="circle" style={logoCircleColorTheme}></div>
-          <div className="inner-circle" style={logoCircleColorTheme}></div>
-          <div className="center-circle" style={logoCircleColorTheme}></div>
-          <div className="crosshair" style={logoCrosshairColorTheme}></div>
-          <div
-            className="crosshair horizontal"
-            style={logoCrosshairColorTheme}
-          ></div>
-        </div>
+        <Target type="header" userTheme={userTheme} />
         <p className="header__logo-title" style={colorTheme}>
           Aim App
         </p>
@@ -145,7 +130,7 @@ export const Header: React.FC<HeaderProps> = ({
               </Link>
             </li>
             <li className="nav__item">
-              <Link to="/" className="nav__link" onClick={toggleMenu}>
+              <Link to="/aim" className="nav__link" onClick={toggleMenu}>
                 Aim
               </Link>
             </li>
@@ -175,9 +160,9 @@ export const Header: React.FC<HeaderProps> = ({
                 }`}
               >
                 <li className="nav__item nav__username-item">
-                  <Link to="/" className="nav__link" onClick={toggleThemeMenu}>
+                  <a className="nav__link theme" onClick={toggleThemeMenu}>
                     My theme
-                  </Link>
+                  </a>
                   <input
                     type="color"
                     className={`input-theme ${isThemeOpen ? "activate" : ""}`}

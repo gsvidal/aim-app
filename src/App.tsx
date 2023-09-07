@@ -13,6 +13,7 @@ import "./App.scss";
 import { ReactionTime } from "./components/ReactionTime/ReactionTime";
 import { AppDataResponseObj, fetchUserData } from "./api/adapter";
 import { NotFound } from "./components/NotFound/NotFound";
+import { Aim } from "./components/Aim/Aim";
 
 function App() {
   const [isUserLoggedIn, setIsUserLoggedIn] = useState<boolean>(false);
@@ -48,6 +49,7 @@ function App() {
     async function fetchData() {
       const data = await fetchUserData(token);
       if (data) {
+        console.log(data);
         console.log("got data from server");
         setAppData(data);
       } else {
@@ -64,7 +66,7 @@ function App() {
       fetchData();
       const storedTheme = localStorage.getItem("colorTheme");
       storedTheme && setUserTheme(storedTheme);
-      console.log(localStorage);
+      // console.log(localStorage);
     }
   }, [isUserLoggedIn, token]);
 
@@ -102,10 +104,12 @@ function App() {
               path="/reaction-time"
               element={<ReactionTime token={token} />}
             />
+            <Route path="/aim" element={<Aim token={token} />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         ) : (
           <Routes>
-            <Route path="/" element={<Navigate to="/login" />} />
+            <Route path="*" element={<Navigate to="/login" />} />
             <Route
               path="/login"
               element={
@@ -126,7 +130,6 @@ function App() {
                 />
               }
             />
-            <Route path="*" element={<NotFound />} />
           </Routes>
         )}
       </main>

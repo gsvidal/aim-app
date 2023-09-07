@@ -43,8 +43,6 @@ export const ReactionTime: React.FC<ReactionTimeProps> = ({ token }) => {
     success: "",
     error: "",
   });
-  // const [successMsg, setSuccessMsg] = useState<string>("");
-  // const [errorMsg, setErrorMsg] = useState<string>("");
 
   // Calculate the average score
   const calculateTotalScore = (attemptsList: number[]): number => {
@@ -177,7 +175,7 @@ export const ReactionTime: React.FC<ReactionTimeProps> = ({ token }) => {
         token,
       };
 
-      async function sendData() {
+      const sendData = async () => {
         const data = await sendGameData(dataBody);
         console.log("data: ", data);
         if (data) {
@@ -208,10 +206,10 @@ export const ReactionTime: React.FC<ReactionTimeProps> = ({ token }) => {
   } = gameState;
 
   return (
-    <section className="reaction-time glass-container">
+    <section className="game game glass-container">
       <h1>Reaction time</h1>
       <div
-        className={`reaction-time__arena ${hasColorChanged ? "activated" : ""}`}
+        className={`game__arena ${hasColorChanged ? "activated" : ""}`}
         onClick={
           hasGameStarted && hasColorChanged && reactionTime === 0
             ? handleReaction
@@ -222,7 +220,7 @@ export const ReactionTime: React.FC<ReactionTimeProps> = ({ token }) => {
       >
         {!hasGameStarted && !isTooSoon && (
           <>
-            <p className="reaction-time__instructions">
+            <p className="game__instructions">
               When the red box turns green, click as quickly as you can.
             </p>
             <Button type="game" onClick={handleStart}>
@@ -233,7 +231,7 @@ export const ReactionTime: React.FC<ReactionTimeProps> = ({ token }) => {
         {reactionTime !== 0 && !isTooSoon && (
           <>
             <p
-              className={`reaction-time__results ${
+              className={`game__results ${
                 hasTotalAttempts && showFinalResults
                   ? "fade-out"
                   : hasTotalAttempts
@@ -249,7 +247,7 @@ export const ReactionTime: React.FC<ReactionTimeProps> = ({ token }) => {
                   showFinalResults ? "fade-in" : ""
                 }`}
               >
-                <p className="reaction-time__results total-attempts">
+                <p className="game__results total-attempts">
                   Your total score is:{" "}
                   <span>
                     {totalScore.toFixed(1)} ms{" "}
@@ -272,7 +270,7 @@ export const ReactionTime: React.FC<ReactionTimeProps> = ({ token }) => {
         )}
         {isTooSoon && (
           <>
-            <p className="reaction-time__results too-soon">Too Soon!</p>
+            <p className="game__results too-soon">Too Soon!</p>
             <Button type="game" onClick={handleRestartGame}>
               Try Again
             </Button>

@@ -1,8 +1,12 @@
-.reaction-time {
+.game {
   width: 100%;
   min-height: 500px;
   height: calc(100vh - 220px);
   max-height: 1000px;
+
+  h1 {
+    user-select: none;
+  }
 
   &__arena {
     display: flex;

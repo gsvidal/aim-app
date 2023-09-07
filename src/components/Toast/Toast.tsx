@@ -21,7 +21,7 @@ export const Toast: React.FC<ToastProps> = ({ children }) => {
     setVisible(true);
     const timeout = setTimeout(() => {
       setVisible(false);
-    }, 2000);
+    }, 1000);
 
     return () => clearTimeout(timeout);
   }, [children]);

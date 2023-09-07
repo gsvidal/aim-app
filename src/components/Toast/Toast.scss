@@ -8,7 +8,7 @@
   color: rgb(0, 0, 0);
   padding: 10px 20px;
   border-radius: 4px;
-  transition: opacity 2s, visibility 2s; /* Added visibility transition */
+  transition: opacity .75s, visibility 1s; /* Added visibility transition */
   opacity: 0; /* Fade-out effect */
   visibility: hidden; /* Hide the element */
   font-size: 1.4rem;

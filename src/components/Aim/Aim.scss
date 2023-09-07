@@ -1,0 +1,18 @@
+.game__arena--aim {
+  background-color: rgba(254, 247, 198, 0.226);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+}
+
+.aim-target {
+  position: absolute;
+  display: none;
+}
+
+.active {
+  display: block;
+}
+
+.game__results--aim {
+  color: white;
+}
