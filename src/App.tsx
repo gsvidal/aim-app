@@ -14,6 +14,7 @@ import { ReactionTime } from "./components/ReactionTime/ReactionTime";
 import { AppDataResponseObj, fetchUserData } from "./api/adapter";
 import { NotFound } from "./components/NotFound/NotFound";
 import { Aim } from "./components/Aim/Aim";
+import { Positions } from "./components/Positions/Positions";
 
 function App() {
   const [isUserLoggedIn, setIsUserLoggedIn] = useState<boolean>(false);
@@ -114,6 +115,7 @@ function App() {
               element={<ReactionTime token={token} />}
             />
             <Route path="/aim" element={<Aim token={token} />} />
+            <Route path="/positions" element={<Positions token={token} />} />
             {/* We can also Navigate to="/" */}
             <Route path="*" element={<NotFound />} />
           </Routes>

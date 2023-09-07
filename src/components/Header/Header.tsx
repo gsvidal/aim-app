@@ -135,7 +135,7 @@ export const Header: React.FC<HeaderProps> = ({
               </Link>
             </li>
             <li className="nav__item">
-              <Link to="/" className="nav__link" onClick={toggleMenu}>
+              <Link to="/positions" className="nav__link" onClick={toggleMenu}>
                 Positions
               </Link>
             </li>

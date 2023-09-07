@@ -2,12 +2,22 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 90%;
+  width: 97.5%;
+  padding: .75rem;
   min-width: 280px;
   max-width: 1000px;
   margin: 0 auto;
-  padding: 2rem;
   text-align: center;
+
+  @media screen and (min-width: 350px) {
+    width: 95%;
+  padding: 1rem;
+  }
+
+  @media screen and (min-width: 760px) {
+    width: 90%;
+    padding: 2rem;
+  }
 }
 
 .glass-container {
