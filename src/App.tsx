@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 
 import { Login } from "./components/Login/Login";
 import { Register } from "./components/Register/Register";
@@ -20,6 +20,7 @@ function App() {
   const [toastMessage, setToastMessage] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [token, setToken] = useState<string>("");
+  const [hasExistedToken, setHasExistedToken] = useState<boolean>(false);
   const [userTheme, setUserTheme] = useState<string>("#359e81");
 
   const [appData, setAppData] = useState<AppDataResponseObj>({
@@ -27,6 +28,7 @@ function App() {
     userData: [],
     skillsData: [],
   });
+  const navigate = useNavigate();
 
   const { username } = appData;
 
@@ -40,6 +42,7 @@ function App() {
     if (storedToken) {
       console.log("there's a token");
       setToken(storedToken);
+      setHasExistedToken(true);
     } else {
       console.log("there's not a token");
     }
@@ -66,9 +69,15 @@ function App() {
       fetchData();
       const storedTheme = localStorage.getItem("colorTheme");
       storedTheme && setUserTheme(storedTheme);
-      // console.log(localStorage);
     }
   }, [isUserLoggedIn, token]);
+
+  useEffect(() => {
+    if (!token && hasExistedToken) {
+      console.log("there's no more token...Redirecting to the Login page");
+      navigate("/");
+    }
+  }, [token, hasExistedToken]);
 
   if (isLoading) {
     return <Loader />;
@@ -105,11 +114,11 @@ function App() {
               element={<ReactionTime token={token} />}
             />
             <Route path="/aim" element={<Aim token={token} />} />
+            {/* We can also Navigate to="/" */}
             <Route path="*" element={<NotFound />} />
           </Routes>
         ) : (
           <Routes>
-            <Route path="*" element={<Navigate to="/login" />} />
             <Route
               path="/login"
               element={
@@ -130,6 +139,7 @@ function App() {
                 />
               }
             />
+            <Route path="*" element={<Navigate to="/login" />} />
           </Routes>
         )}
       </main>

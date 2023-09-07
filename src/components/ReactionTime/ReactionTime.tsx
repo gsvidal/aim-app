@@ -105,6 +105,10 @@ export const ReactionTime: React.FC<ReactionTimeProps> = ({ token }) => {
       reactionTime: 0,
       isTooSoon: false,
     });
+    setSaveStatusMsg({
+      success: "",
+      error: ""
+    })
     if (gameState.attempts.length === TOTAL_ATTEMPTS) {
       console.log("deep everything restarted");
       setGameState(initialValues);
@@ -181,16 +185,16 @@ export const ReactionTime: React.FC<ReactionTimeProps> = ({ token }) => {
         if (data) {
           console.log("msg from server: ", data.message);
           setSaveStatusMsg({
-            ...saveStatusMsg,
             success: data.message,
+            error: "",
           });
         } else {
           setSaveStatusMsg({
-            ...saveStatusMsg,
+            success: "",
             error: "Couldn't save your score",
           });
         }
-      }
+      };
       sendData();
     }
   }, [gameState.totalScore]);
@@ -248,13 +252,10 @@ export const ReactionTime: React.FC<ReactionTimeProps> = ({ token }) => {
                 }`}
               >
                 <p className="game__results total-attempts">
-                  Your total score is:{" "}
-                  <span>
-                    {totalScore.toFixed(1)} ms{" "}
-                    <span className="saved-msg">{saveStatusMsg.success}</span>
-                    <span className="saved-msg saved-msg--error">
-                      {saveStatusMsg.error}
-                    </span>
+                  Your total score is: <span>{totalScore.toFixed(1)} ms </span>
+                  <span className="saved-msg">{saveStatusMsg.success}</span>
+                  <span className="saved-msg saved-msg--error">
+                    {saveStatusMsg.error}
                   </span>
                 </p>
                 <Button type="game" onClick={handleRestartGame}>

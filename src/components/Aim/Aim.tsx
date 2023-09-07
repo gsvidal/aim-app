@@ -58,11 +58,13 @@ export const Aim: React.FC<AimProps> = ({ token }) => {
   };
 
   const handleReset = () => {
+    console.log("reset")
     setTargets(initialTargets);
     setScores(initialScores);
     setCurrentTargetIndex(0);
     setHasGameFinished(false);
     setHasGameStarted(false);
+
   };
 
   useEffect(() => {
@@ -88,12 +90,12 @@ export const Aim: React.FC<AimProps> = ({ token }) => {
         if (data) {
           console.log("msg from server: ", data.message);
           setSaveStatusMsg({
-            ...saveStatusMsg,
             success: data.message,
+            error: "",
           });
         } else {
           setSaveStatusMsg({
-            ...saveStatusMsg,
+            success: "",
             error: "Couldn't save your score",
           });
         }
@@ -106,10 +108,13 @@ export const Aim: React.FC<AimProps> = ({ token }) => {
     setHasGameStarted(true);
     setCurrentTargetIndex(0);
     setScores(initialScores);
+    setSaveStatusMsg({
+      success: "",
+      error: "",
+    });
   };
 
   const handleTargetClick = (targetId: number) => {
-    console.log("click");
     if (hasGameStarted && !hasGameFinished) {
       setTargets((prevTargets) => {
         const updateTargets = [...prevTargets];
@@ -151,7 +156,6 @@ export const Aim: React.FC<AimProps> = ({ token }) => {
             return updateTargets;
           });
 
-          console.log("Target #", currentTargetIndex + 1, " is gone");
           setCurrentTargetIndex((prevIndex) => prevIndex + 1);
         }, TARGET_TIME);
 
@@ -176,6 +180,7 @@ export const Aim: React.FC<AimProps> = ({ token }) => {
               Hit the targets at the center point. Get many hits as fast as you
               can
             </p>
+
             <h6>For a better experience play it in a laptop or desktop</h6>
 
             <Button type="game" onClick={handleStart}>

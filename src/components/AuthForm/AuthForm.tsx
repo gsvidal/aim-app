@@ -75,10 +75,6 @@ export const AuthForm: React.FC<AuthFormProps> = ({
         // In case registered successfully
         const data = await response.json();
         setToastMessage(data.message); // message: Registered successfully
-        // console.log(
-        //   `received token (${apiEndpoint}) of ${usernameInput.value}:`,
-        //   data["access_token"]
-        // );
         localStorage.setItem("token", data["access_token"]);
         setToken(data["access_token"]);
         localStorage.setItem("isLoggedIn", "true");

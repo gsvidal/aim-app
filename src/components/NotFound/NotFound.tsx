@@ -13,9 +13,11 @@ export const NotFound: React.FC = () => {
       <div className="not-found__copy">
         <h1>404 Page not found</h1>
         <h2>Woops!, looks like this page doesn't exist.</h2>
-        <Link to="/">
-          <Button>Go to Home Page</Button>
-        </Link>
+        <div className="not-found__button">
+          <Link to="/">
+            <Button>Go to Home Page</Button>
+          </Link>
+        </div>
       </div>
     </section>
   );

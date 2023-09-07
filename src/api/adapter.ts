@@ -77,13 +77,11 @@ export const fetchUserData = async (
 
     if (response.ok) {
       const backendData = await response.json();
-      //   console.log(backendData);
       const frontendData = mapBackendToResponse(backendData);
-      //   console.log(frontendData);
       return frontendData;
     } else {
       const errorResponse = await response.json();
-      // console.log(errorResponse.msg);
+      console.log(errorResponse.msg);
       return null;
     }
   } catch (error) {
@@ -108,7 +106,7 @@ export const sendGameData = async (
   dataBody: dataBodyObj
 ): Promise<GameDataResponseObj | null> => {
   try {
-    const response = await fetch(`${apiUrl}/reaction-time`, {
+    const response = await fetch(`${apiUrl}/games`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${dataBody.token}`,
@@ -131,7 +129,7 @@ export const sendGameData = async (
       return null;
     }
   } catch (error) {
-    console.error(error);
+    console.error("Error while fetching data:", error);
     return null;
   }
 };
