@@ -22,7 +22,7 @@ type ReactionTimeProps = {
 
 const TOTAL_ATTEMPTS = 3;
 const LOWER_LIMIT_RANDOM = 1000;
-const HIGHER_LIMIT_RANDOM = 3000;
+const HIGHER_LIMIT_RANDOM = 5000;
 
 export const ReactionTime: React.FC<ReactionTimeProps> = ({ token }) => {
   const initialValues = {

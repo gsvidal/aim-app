@@ -1,5 +1,3 @@
-import { ErrorPage } from "../components/ErrorPage/ErrorPage";
-
 const apiUrl = import.meta.env.VITE_API_URL; // Make sure to use the correct environment variable
 
 export interface AppDataResponseObj {
