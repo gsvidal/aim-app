@@ -115,9 +115,9 @@ export const Header: React.FC<HeaderProps> = ({
         {isUserLoggedIn && (
           <ul className="nav__menu nav__menu--features">
             <li className="nav__item">
-              <a href="/" className="nav__link" onClick={toggleMenu}>
+              <Link to="/" className="nav__link" onClick={toggleMenu}>
                 Dashboard
-              </a>
+              </Link>
             </li>
             <li className="nav__item">
               <Link

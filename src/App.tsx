@@ -99,8 +99,8 @@ function App() {
               element={
                 <Dashboard
                   isUserLoggedIn={isUserLoggedIn}
-                  appData={appData}
                   userTheme={userTheme}
+                  token={token}
                 />
               }
             />
@@ -109,7 +109,10 @@ function App() {
               element={<ReactionTime token={token} />}
             />
             <Route path="/aim" element={<Aim token={token} />} />
-            <Route path="/positions" element={<Positions token={token} username = {username}/>} />
+            <Route
+              path="/positions"
+              element={<Positions token={token} username={username} />}
+            />
             {/* We can also Navigate to="/" */}
             <Route path="*" element={<NotFound />} />
           </Routes>

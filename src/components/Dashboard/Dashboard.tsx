@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { AppDataResponseObj } from "../../api/adapter";
+import { AppDataResponseObj, fetchUserData } from "../../api/adapter";
 
 import { Skill } from "../Skill/Skill";
 import { Loader } from "../Loader/Loader";
@@ -10,18 +10,30 @@ import { useNavigate } from "react-router-dom";
 
 type DashboardProps = {
   isUserLoggedIn: boolean;
-  appData: AppDataResponseObj;
   userTheme: string;
+  token: string
 };
 
 export const Dashboard: React.FC<DashboardProps> = ({
   isUserLoggedIn,
-  appData,
-  userTheme
+  userTheme,
+  token
 }) => {
   const navigate = useNavigate();
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [appData, setAppData] = useState<AppDataResponseObj>({username: "", userData: [], skillsData: []});
+
+  useEffect(() => {
+    const  fetchData = async () => {
+      const data = await fetchUserData(token);
+      console.log(data);
+      if (data) {
+        setAppData(data);
+      } 
+    }
+    fetchData();
+  }, [isUserLoggedIn, token])
 
   useEffect(() => {
     if (appData) {
