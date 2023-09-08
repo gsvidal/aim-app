@@ -41,11 +41,9 @@ function App() {
 
     const storedToken = localStorage.getItem("token");
     if (storedToken) {
-      console.log("there's a token");
       setToken(storedToken);
       setHasExistedToken(true);
     } else {
-      console.log("there's not a token");
     }
   }, []);
 
@@ -53,8 +51,6 @@ function App() {
     async function fetchData() {
       const data = await fetchUserData(token);
       if (data) {
-        console.log(data);
-        console.log("got data from server");
         setAppData(data);
       } else {
         localStorage.setItem("token", "");
@@ -65,7 +61,6 @@ function App() {
       setIsLoading(false);
     }
     if (isUserLoggedIn && token) {
-      console.log("isUserLoggedIn");
       setIsLoading(true);
       fetchData();
       const storedTheme = localStorage.getItem("colorTheme");
@@ -75,7 +70,6 @@ function App() {
 
   useEffect(() => {
     if (!token && hasExistedToken) {
-      console.log("there's no more token...Redirecting to the Login page");
       navigate("/");
     }
   }, [token, hasExistedToken]);
@@ -115,7 +109,7 @@ function App() {
               element={<ReactionTime token={token} />}
             />
             <Route path="/aim" element={<Aim token={token} />} />
-            <Route path="/positions" element={<Positions token={token} />} />
+            <Route path="/positions" element={<Positions token={token} username = {username}/>} />
             {/* We can also Navigate to="/" */}
             <Route path="*" element={<NotFound />} />
           </Routes>

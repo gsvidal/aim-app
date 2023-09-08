@@ -71,7 +71,6 @@ export const Header: React.FC<HeaderProps> = ({
     // Logout frontend
     localStorage.setItem("isLoggedIn", "false");
     setIsUserLoggedIn(false);
-    // localStorage.setItem("colorTheme", userTheme)
     setUserTheme("#359e81");
 
     // Logout backend

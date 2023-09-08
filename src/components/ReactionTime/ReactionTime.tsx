@@ -3,10 +3,6 @@ import { Button } from "../Button/Button";
 import "./ReactionTime.scss";
 import { sendGameData } from "../../api/adapter";
 
-const TOTAL_ATTEMPTS = 2;
-const LOWER_LIMIT_RANDOM = 1000;
-const HIGHER_LIMIT_RANDOM = 3000;
-
 type GameStateObj = {
   hasGameStarted: boolean;
   hasColorChanged: boolean;
@@ -23,6 +19,10 @@ type GameStateObj = {
 type ReactionTimeProps = {
   token: string;
 };
+
+const TOTAL_ATTEMPTS = 3;
+const LOWER_LIMIT_RANDOM = 1000;
+const HIGHER_LIMIT_RANDOM = 3000;
 
 export const ReactionTime: React.FC<ReactionTimeProps> = ({ token }) => {
   const initialValues = {
@@ -62,10 +62,8 @@ export const ReactionTime: React.FC<ReactionTimeProps> = ({ token }) => {
 
   // Handle the start of the game
   const handleStart = (): void => {
-    console.log("handleStart");
     const timeToChange = randomTime();
     const newTimerId = setTimeout(() => {
-      console.log("color has changed/ time has passed");
       setGameState((prevState) => ({
         ...prevState,
         hasColorChanged: true,
@@ -80,7 +78,6 @@ export const ReactionTime: React.FC<ReactionTimeProps> = ({ token }) => {
 
   // Handle user's reaction
   const handleReaction = (): void => {
-    console.log("handleReaction");
     const endTime: DOMHighResTimeStamp = performance.now();
     setGameState({
       ...gameState,
@@ -90,13 +87,11 @@ export const ReactionTime: React.FC<ReactionTimeProps> = ({ token }) => {
 
   // Handle reaction that's too soon
   const handleTooSoon = (): void => {
-    console.log("handleTooSoon");
     setGameState({ ...gameState, isTooSoon: true });
   };
 
   // Handle restarting the game
   const handleRestartGame = (): void => {
-    console.log("shallow RestartGame");
     setGameState({
       ...gameState,
       hasGameStarted: false,
@@ -110,7 +105,6 @@ export const ReactionTime: React.FC<ReactionTimeProps> = ({ token }) => {
       error: ""
     })
     if (gameState.attempts.length === TOTAL_ATTEMPTS) {
-      console.log("deep everything restarted");
       setGameState(initialValues);
     }
   };
@@ -129,7 +123,6 @@ export const ReactionTime: React.FC<ReactionTimeProps> = ({ token }) => {
 
   useEffect(() => {
     if (gameState.times.length === 2) {
-      console.log("round finished");
       const reactTime: number = gameState.times[1] - gameState.times[0];
       setGameState((prevState) => ({
         ...prevState,
@@ -152,7 +145,6 @@ export const ReactionTime: React.FC<ReactionTimeProps> = ({ token }) => {
   useEffect(() => {
     // Check if all attempts are done and show final results
     if (gameState.attempts.length === TOTAL_ATTEMPTS) {
-      console.log("game finished");
       const totalScore = calculateTotalScore(gameState.attempts);
       setGameState((prevState) => ({
         ...prevState,
@@ -181,9 +173,7 @@ export const ReactionTime: React.FC<ReactionTimeProps> = ({ token }) => {
 
       const sendData = async () => {
         const data = await sendGameData(dataBody);
-        console.log("data: ", data);
         if (data) {
-          console.log("msg from server: ", data.message);
           setSaveStatusMsg({
             success: data.message,
             error: "",
@@ -243,7 +233,7 @@ export const ReactionTime: React.FC<ReactionTimeProps> = ({ token }) => {
                   : ""
               }`}
             >
-              Your score is: <span>{reactionTime.toFixed(1)} ms</span>
+              Your average score is: <span>{reactionTime.toFixed(1)} ms</span>
             </p>
             {hasTotalAttempts ? (
               <div

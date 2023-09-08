@@ -14,7 +14,7 @@ type targetObj = {
   times: DOMHighResTimeStamp[];
 };
 
-const MAX_TARGET_SIZE: number = 3;
+const MAX_TARGET_SIZE: number = 5;
 const TARGET_TIME: number = 2000;
 
 export const Aim: React.FC<AimProps> = ({ token }) => {
@@ -58,7 +58,6 @@ export const Aim: React.FC<AimProps> = ({ token }) => {
   };
 
   const handleReset = () => {
-    console.log("reset")
     setTargets(initialTargets);
     setScores(initialScores);
     setCurrentTargetIndex(0);
@@ -86,9 +85,7 @@ export const Aim: React.FC<AimProps> = ({ token }) => {
       };
       const sendData = async () => {
         const data = await sendGameData(dataBody);
-        console.log("data: ", data);
         if (data) {
-          console.log("msg from server: ", data.message);
           setSaveStatusMsg({
             success: data.message,
             error: "",
@@ -208,7 +205,7 @@ export const Aim: React.FC<AimProps> = ({ token }) => {
           <>
             <p>Game finished!</p>
             <p className="game__results game__results--aim">
-              Your total score is:{" "}
+              Your average score is:{" "}
               <span>{calculateTotalScore(scores).toFixed(1)} ms</span>
               <span className="saved-msg">{saveStatusMsg.success}</span>
               <span className="saved-msg saved-msg--error">
