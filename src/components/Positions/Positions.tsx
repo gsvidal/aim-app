@@ -1,10 +1,26 @@
+import { useState, useEffect } from "react";
+import { UserResponseObj, fetchAllUsersData } from "../../api/adapter";
+import { PositionItem } from "../PositionItem/PositionItem";
 import "./Positions.scss";
 
 type PositionsProps = {
   token: string;
+  username: string;
 };
 
-export const Positions: React.FC<PositionsProps> = ({ token }) => {
+export const Positions: React.FC<PositionsProps> = ({ token, username }) => {
+  const [usersData, setUsersData] = useState<UserResponseObj[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await fetchAllUsersData(token);
+      if (data) {
+        setUsersData(data.usersData);
+      }
+    };
+    fetchData();
+  }, []);
+
   return (
     <section className="glass-container">
       <h1>General Ranking</h1>
@@ -13,8 +29,12 @@ export const Positions: React.FC<PositionsProps> = ({ token }) => {
           <thead>
             <tr>
               <th className="positions-head positions-head--name">Name</th>
-              <th>Reaction Time {'('}ms{')'}</th>
-              <th>Aim {'('}ms{')'}</th>
+              <th>
+                Reaction Time {"("}ms{")"}
+              </th>
+              <th>
+                Aim {"("}ms{")"}
+              </th>
               <th>Total</th>
               <th className="positions-head positions-head--ranking">
                 Ranking
@@ -22,27 +42,9 @@ export const Positions: React.FC<PositionsProps> = ({ token }) => {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td className="positions-data positions-data--name">Papu</td>
-              <td className="positions-data">350</td>
-              <td className="positions-data">600</td>
-              <td className="positions-data">0.97</td>
-              <td className="positions-data positions-data--ranking">1</td>
-            </tr>
-            <tr>
-              <td className="positions-data positions-data--name">Pajerico</td>
-              <td className="positions-data">450</td>
-              <td className="positions-data">500</td>
-              <td className="positions-data">0.92</td>
-              <td className="positions-data positions-data--ranking">2</td>
-            </tr>
-            <tr>
-              <td className="positions-data positions-data--name">Pajerico</td>
-              <td className="positions-data">450</td>
-              <td className="positions-data">500</td>
-              <td className="positions-data">0.92</td>
-              <td className="positions-data positions-data--ranking">2</td>
-            </tr>
+            {usersData.map((userData, index) => (
+              <PositionItem id={index} key={userData.userId} userData={userData} loggedUsername = {username}/>
+            ))}
           </tbody>
         </table>
       </div>

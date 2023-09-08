@@ -1,5 +1,3 @@
-import { ErrorPage } from "../components/ErrorPage/ErrorPage";
-
 const apiUrl = import.meta.env.VITE_API_URL; // Make sure to use the correct environment variable
 
 export interface AppDataResponseObj {
@@ -7,10 +5,6 @@ export interface AppDataResponseObj {
   userData: UserDashDataObj[];
   skillsData: SkillsDataObj[];
 }
-
-// export type AppErrorResponseObj = {
-//   message: string;
-// }
 
 export type UserDashDataObj = {
   username: string;
@@ -46,13 +40,13 @@ export type BackendUserDashDataObj = {
 function mapBackendToResponse(
   backendData: BackendUserDataResponse
 ): AppDataResponseObj {
-  const frontendUserData = backendData.user_dash_data.map((userDataItem) => ({
-    username: userDataItem["user_name"],
-    skillId: userDataItem["skill_id"],
-    skillName: userDataItem["skill_name"],
-    avgScore: userDataItem["avg_score"],
-    bestScore: userDataItem["best_score"],
-    lastScore: userDataItem["last_score"],
+  const frontendUserData = backendData.user_dash_data.map((userData) => ({
+    username: userData["user_name"],
+    skillId: userData["skill_id"],
+    skillName: userData["skill_name"],
+    avgScore: userData["avg_score"],
+    bestScore: userData["best_score"],
+    lastScore: userData["last_score"],
   }));
 
   return {
@@ -66,7 +60,6 @@ export const fetchUserData = async (
   token: string
 ): Promise<AppDataResponseObj | null> => {
   try {
-    console.log("fetch");
     const response = await fetch(`${apiUrl}/`, {
       method: "GET",
       credentials: "include",
@@ -120,12 +113,80 @@ export const sendGameData = async (
 
     if (response.ok) {
       const data = await response.json();
-      console.log(data);
-      console.log(data.value);
       return data;
     } else {
       const errorResponse = await response.json();
       console.log(errorResponse);
+      return null;
+    }
+  } catch (error) {
+    console.error("Error while fetching data:", error);
+    return null;
+  }
+};
+
+// Get Positions
+
+type BackendUserDataObj = {
+  user_id: number;
+  user_name: string;
+  reaction_time: number;
+  aim: number;
+  total: number; 
+};
+
+type BackendAllUsersDataObj = {
+  users_data: BackendUserDataObj[];
+};
+
+export type UserResponseObj = {
+  userId: number;
+  username: string;
+  reactionTime: number;
+  aim: number;
+  total: number;
+};
+
+type AllUsersResponseObj = {
+  usersData: UserResponseObj[];
+};
+
+// Map backend response to frontend response
+function mapBacktoFront(
+  backendData: BackendAllUsersDataObj
+): AllUsersResponseObj {
+  const frontendUserData = backendData.users_data.map((userData) => ({
+    userId: userData["user_id"],
+    username: userData["user_name"],
+    reactionTime: userData["reaction_time"],
+    aim: userData["aim"],
+    total: userData["total"],
+  }));
+
+  return {
+    usersData: frontendUserData,
+  };
+}
+
+export const fetchAllUsersData = async (
+  token: string
+): Promise<AllUsersResponseObj | null> => {
+  try {
+    const response = await fetch(`${apiUrl}/positions`, {
+      method: "GET",
+      credentials: "include",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (response.ok) {
+      const backendData = await response.json();
+      const frontendData = mapBacktoFront(backendData);
+      return frontendData;
+    } else {
+      const errorResponse = await response.json();
+      console.log(errorResponse.msg);
       return null;
     }
   } catch (error) {
