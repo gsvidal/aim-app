@@ -1,0 +1,88 @@
+.game {
+  width: 100%;
+  min-height: 500px;
+  height: calc(100vh - 220px);
+  max-height: 1000px;
+
+  h1 {
+    user-select: none;
+  }
+
+  &__arena {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    width: 80%;
+    min-height: 300px;
+    height: calc(100vh - 450px);
+    max-height: 750px;
+    padding: 20px;
+    margin: 0 auto 60px;
+    font-size: 1.6rem;
+    background-color: rgb(255, 129, 129);
+    @media screen and (min-width: 400px) {
+      font-size: 2.2rem;
+      padding: 40px;
+    }
+
+    &.activated {
+      background-color: rgb(129, 255, 192);
+    }
+  }
+
+  &__instructions {
+    margin-bottom: 10px;
+  }
+
+  &__results {
+    position: relative;
+    top: 0;
+    font-size: 2.2rem;
+    margin: 5px;
+    color: black;
+    opacity: 1;
+    transition: all 0.75s linear;
+
+    span {
+      display: block;
+      font-weight: bold;
+    }
+
+    &.too-soon {
+      color: white;
+    }
+
+    &.last {
+      top: 70px;
+    }
+
+    &.fade-out {
+      top: -30px;
+      opacity: 0;
+    }
+
+    .saved-msg {
+      margin-top: 10px;
+      color: var(--secondary-color);
+
+      &--error {
+        color: rgb(193, 60, 60);
+      }
+    }
+  }
+
+  .final__results {
+    position: relative;
+    top: 100px;
+    left: 0;
+    opacity: 0;
+    transition: all 0.75s ease-in;
+
+    &.fade-in {
+      top: -40px;
+      left: 0;
+      opacity: 1;
+    }
+  }
+}

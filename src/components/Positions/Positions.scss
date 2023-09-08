@@ -1,0 +1,144 @@
+.game__arena--positions {
+  position: relative;
+  height: 100%;
+  width: 95%;
+  padding: 10px;
+  background-color: rgba(227, 198, 254, 0.226);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  max-height: none;
+
+  @media screen and (min-width: 350px) {
+    width: 92.5%;
+    padding: 50px;
+  }
+
+  @media screen and (min-width: 760px) {
+    width: 90%;
+    padding: 20px;
+  }
+  @media screen and (min-width: 1024px) {
+    width: 90%;
+    padding: 30px;
+  }
+}
+
+.positions {
+  &__table {
+    width: 100%;
+    border-collapse: collapse;
+
+    thead {
+      font-size: 2rem;
+      th {
+        padding-bottom: 8px;
+      }
+    }
+
+    /* Zebra striping */
+    tr:nth-of-type(odd) {
+      background: #eeeeee30;
+    }
+    th {
+      background: #3c0d6095;
+      font-weight: bold;
+    }
+    td,
+    th {
+      padding: 6px;
+      border: 1px solid #cccccc7c;
+    }
+
+    tbody {
+      font-size: 1.6rem;
+    }
+  }
+
+  &-head {
+    &--name {
+      text-align: left;
+    }
+    &--ranking {
+      text-align: right;
+    }
+  }
+  &-data {
+    padding: 5px 0;
+    &--name {
+      text-align: left;
+    }
+    &--ranking {
+      text-align: right;
+    }
+  }
+}
+
+/* 
+Max width before this PARTICULAR table gets nasty
+This query will take effect for any screen smaller than 760px
+and also iPads specifically.
+*/
+@media screen and (max-width: 760px) {
+  /* Force table to not be like tables anymore */
+  table,
+  thead,
+  tbody,
+  th,
+  td,
+  tr,
+  .positions-data--ranking {
+    text-align: left;
+    display: block;
+    min-width: 240px;
+  }
+
+  /* Hide table headers (but not display: none;, for accessibility) */
+  thead tr {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+
+  tr {
+    border: 1px solid #ccc;
+  }
+
+  td {
+    /* Behave  like a "row" */
+    border: none;
+    border-bottom: 1px solid #eee;
+    position: relative;
+    // left: 40px;
+    padding-left: 100px;
+  }
+
+  td:before {
+    /* Now like a table header */
+    position: relative;
+    font-weight: bold;
+    /* Top/left values mimic padding */
+    top: 0px;
+    left: 6px;
+    width: 45%;
+    margin-right: 25px;
+    white-space: nowrap;
+  }
+
+  /*
+	Label the data
+	*/
+  td:nth-of-type(1):before {
+    content: "Name:";
+  }
+  td:nth-of-type(2):before {
+    content: "Reaction Time (ms):";
+  }
+  td:nth-of-type(3):before {
+    content: "Aim (ms):";
+  }
+  td:nth-of-type(4):before {
+    content: "Total:";
+  }
+  td:nth-of-type(5):before {
+    content: "Ranking:";
+  }
+}

@@ -1,0 +1,301 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin: 20px 0 50px;
+  position: relative;
+
+  &__logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+
+    &-title {
+      color: var(--main-color);
+      font-size: 2rem;
+      font-weight: bold;
+      margin-bottom: 2px;
+    }
+  }
+
+  &__menu-toggle {
+    position: absolute;
+    top: 18px;
+    right: -10px;
+    z-index: 3;
+    display: none;
+    padding: 0;
+    background: none;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+
+    .bar {
+      width: 30px;
+      height: 3px;
+      background-color: white;
+      transition: all 0.3s ease-in-out;
+
+      &:not(:last-child) {
+        margin-bottom: 4px;
+      }
+    }
+
+    &.open {
+      .bar {
+        background-color: var(--main-color-dark);
+      }
+      .bar.open:nth-child(1) {
+        transform: rotate(-45deg) translate(-5px, 5px);
+      }
+
+      .bar.open:nth-child(2) {
+        opacity: 0;
+      }
+
+      .bar.open:nth-child(3) {
+        transform: rotate(45deg) translate(-5px, -5px);
+      }
+    }
+  }
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+
+  &__menu {
+    display: flex;
+    justify-content: space-around;
+    list-style: none;
+
+    &--features {
+      position: absolute;
+      top: 15px;
+      left: 160px;
+    }
+  }
+
+  &__item {
+    margin: 0 20px;
+    font-size: 1.4rem;
+    font-weight: bold;
+  }
+
+  &__link {
+    text-decoration: none;
+    color: white;
+    cursor: pointer;
+
+    &:hover {
+      color: var(--secondary-color);
+    }
+  }
+
+  &__username {
+    display: block;
+    margin: 5px 0 4px;
+    line-height: 1.6rem;
+    font-size: 1.4rem;
+    font-weight: bold;
+    text-decoration: none;
+    color: white;
+    cursor: pointer;
+
+    &:hover {
+      color: var(--secondary-color);
+    }
+
+    &-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      top: 13px;
+      right: 50px;
+      z-index: 2;
+    }
+
+    &-mini-container {
+      &:hover {
+        filter: brightness(0) saturate(100%) invert(76%) sepia(54%)
+          saturate(6557%) hue-rotate(212deg) brightness(105%) contrast(101%);
+      }
+
+      .chevron-icon {
+        display: inline-block;
+        width: 15px;
+        height: 10px;
+        margin-top: 5px;
+        margin-right: 2px;
+        background: url("/assets/chevron-up.svg") center/cover no-repeat;
+        transform: rotate(180deg);
+        transition: rotate 0.15s linear;
+        cursor: pointer;
+
+        &:hover {
+          filter: inherit;
+        }
+
+        &.open {
+          transform: rotateY(180deg);
+        }
+      }
+    }
+
+    &-mini-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    &-list {
+      display: none;
+      position: absolute;
+      top: 35px;
+      right: 0px;
+      width: 120px;
+      padding: 10px 20px;
+      background-color: #482d45;
+      border-radius: 4px;
+      list-style: none;
+      box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
+        rgba(0, 0, 0, 0.22) 0px 15px 12px;
+
+      &.active {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+
+    &-item {
+      margin: 7px 0;
+      .input-theme {
+        display: none;
+        position: absolute;
+        top: 15px;
+        right: 130px;
+        cursor: pointer;
+
+        &.activate {
+          display: block;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .header {
+    &__menu-toggle {
+      display: block;
+
+      &.open {
+        position: fixed;
+        top: 58px;
+        right: 30px;
+      }
+    }
+
+    .backdrop {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 1;
+      background-color: rgba(0, 0, 0, 0.527);
+
+      &.open {
+        display: block;
+      }
+    }
+  }
+
+  .nav {
+    position: fixed;
+    top: 30px;
+    right: -100vw;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    z-index: 2;
+    width: 300px;
+    height: 500px;
+    padding: 1rem;
+    border-radius: 4px;
+    background-color: #fff;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    transition: all 0.3s ease-in-out;
+
+    & .nav__menu {
+      display: flex;
+      flex-direction: column;
+      position: static;
+      margin-top: 20px;
+    }
+    & .nav__item {
+      padding: 12px 30px;
+      margin: 5px 0;
+      width: 180px;
+      line-height: 1.6rem;
+      border-radius: 20px;
+      background-color: rgb(245, 245, 255);
+      font-size: 1.6rem;
+      cursor: pointer;
+      &:hover {
+        color: var(--secondary-color-dark);
+        background-color: rgb(234, 234, 255);
+      }
+    }
+
+    &__link {
+      color: var(--secondary-color);
+    }
+    &.open {
+      display: flex;
+      right: 0;
+      opacity: 1;
+    }
+
+    &__username {
+      cursor: default;
+      color: var(--secondary-color);
+
+      &-container {
+        position: static;
+        flex-direction: column;
+
+        .chevron-icon {
+          display: none;
+        }
+      }
+      &-list {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        position: static;
+        width: initial;
+        background-color: transparent;
+        box-shadow: none;
+      }
+      &-item {
+        .input-theme {
+          display: none;
+          position: absolute;
+          top: 366px;
+          right: 245px;
+
+          &.activate {
+            display: block;
+          }
+        }
+      }
+    }
+  }
+}

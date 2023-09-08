@@ -1,0 +1,28 @@
+.toast {
+  position: fixed;
+  top: 60px;
+  left: 50%;
+  z-index: 2;
+  transform: translateX(-50%);
+  background-color: var(--toast-in-color);
+  color: rgb(0, 0, 0);
+  padding: 10px 20px;
+  border-radius: 4px;
+  transition: opacity .75s, visibility 1s; /* Added visibility transition */
+  opacity: 0; /* Fade-out effect */
+  visibility: hidden; /* Hide the element */
+  font-size: 1.4rem;
+
+  &--logout {
+    background-color: var(--toast-out-color);
+  }
+
+  &--register {
+    background-color: var(--toast-registered-color);
+  }
+
+  &.visible {
+    opacity: 1;
+    visibility: visible;
+  }
+}

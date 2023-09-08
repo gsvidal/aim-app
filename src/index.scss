@@ -1,0 +1,67 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color: white;
+
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+  --main-color-very-light: #e7fef9;
+  --main-color-light: #bdffee;
+  --main-color: #359e81;
+  --main-color-dark: rgb(36, 81, 77);
+  --secondary-color-light: rgb(241, 241, 255);
+  --secondary-color: #8d8dff;
+  --secondary-color-dark: rgb(67, 67, 255);
+  --error-color-light: rgb(255, 134, 134);
+  --error-color: rgb(255, 195, 195);
+  --error-color-dark: rgb(255, 0, 0);
+  --toast-in-color: #bde5ff;
+  --toast-out-color: #ffe1bd;
+  --toast-registered-color: #f0ffc7;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  height: 100vh;
+  background: url("/assets/bg-mobile.jpg") center/cover repeat;
+
+  @media screen and (min-width: 1000px) {
+    background: url("/assets/bg-desktop.jpg") center/cover repeat;
+  }
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+button:hover {
+  border-color: #646cff;
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
