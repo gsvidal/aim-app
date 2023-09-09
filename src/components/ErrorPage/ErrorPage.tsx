@@ -1,6 +1,4 @@
-import { Link } from "react-router-dom";
 import "./ErrorPage.scss";
-import { Button } from "../Button/Button";
 
 type ErrorPageProps = {
   error: {

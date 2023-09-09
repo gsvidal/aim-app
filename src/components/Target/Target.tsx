@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import "./Target.scss";
 
 type TargetProps = {
@@ -13,11 +12,6 @@ export const Target: React.FC<TargetProps> = ({
   userTheme,
   onInnerCircleClick,
 }) => {
-
-  // const handleInnerCircleClick = () => {
-  //   // Call the callback function when inner-circle is clicked
-  //   onInnerCircleClick();
-  // };
 
   const logoCircleColorTheme = {
     borderColor: userTheme,
