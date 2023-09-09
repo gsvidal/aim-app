@@ -27,7 +27,6 @@ export const Dashboard: React.FC<DashboardProps> = ({
   useEffect(() => {
     const  fetchData = async () => {
       const data = await fetchUserData(token);
-      console.log(data);
       if (data) {
         setAppData(data);
       } 

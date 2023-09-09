@@ -8,7 +8,7 @@ import "./index.scss";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <BrowserRouter basename="/aim-app-frontend">
+    <BrowserRouter basename="/aim-app-frontend/">
       <App />
     </BrowserRouter>
   </React.StrictMode>
