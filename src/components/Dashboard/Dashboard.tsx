@@ -11,31 +11,35 @@ import { useNavigate } from "react-router-dom";
 type DashboardProps = {
   isUserLoggedIn: boolean;
   userTheme: string;
-  token: string
+  token: string;
 };
 
 export const Dashboard: React.FC<DashboardProps> = ({
   isUserLoggedIn,
   userTheme,
-  token
+  token,
 }) => {
   const navigate = useNavigate();
 
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [appData, setAppData] = useState<AppDataResponseObj>({username: "", userData: [], skillsData: []});
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [appData, setAppData] = useState<AppDataResponseObj>({
+    username: "",
+    userData: [],
+    skillsData: [],
+  });
 
   useEffect(() => {
-    const  fetchData = async () => {
+    const fetchData = async () => {
       const data = await fetchUserData(token);
       if (data) {
         setAppData(data);
-      } 
-    }
+      }
+    };
     fetchData();
-  }, [isUserLoggedIn, token])
+  }, [isUserLoggedIn, token]);
 
   useEffect(() => {
-    if (appData) {
+    if (appData.username) {
       setIsLoading(false);
     }
   }, [appData]);
@@ -50,24 +54,24 @@ export const Dashboard: React.FC<DashboardProps> = ({
 
   if (isLoading) {
     return <Loader />;
+  } else {
+    return (
+      <>
+        <h1>Welcome {username}!</h1>
+        {userData.length === 0 && (
+          <h2>You haven't played any games yet, try one!</h2>
+        )}
+        <section className="skill__list">
+          {skillsData.map((skillItem) => (
+            <Skill
+              key={skillItem.id}
+              skillItem={skillItem}
+              userData={userData}
+              userTheme={userTheme}
+            />
+          ))}
+        </section>
+      </>
+    );
   }
-
-  return (
-    <>
-      <h1>Welcome {username}!</h1>
-      {userData.length === 0 && (
-        <h2>You haven't played any games yet, try one!</h2>
-      )}
-      <section className="skill__list">
-        {skillsData.map((skillItem) => (
-          <Skill
-            key={skillItem.id}
-            skillItem={skillItem}
-            userData={userData}
-            userTheme={userTheme}
-          />
-        ))}
-      </section>
-    </>
-  );
 };
