@@ -12,7 +12,6 @@ export const Target: React.FC<TargetProps> = ({
   userTheme,
   onInnerCircleClick,
 }) => {
-
   const logoCircleColorTheme = {
     borderColor: userTheme,
   };

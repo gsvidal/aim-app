@@ -1,8 +1,11 @@
 import { useEffect, useState, useRef } from "react";
-import "./Aim.scss";
 import { Target } from "../Target/Target";
 import { Button } from "../Button/Button";
 import { sendGameData } from "../../api/adapter";
+import "./Aim.scss";
+import shotSound from "/assets/shot-effect.mp3";
+// @ts-ignore
+import useSound from "use-sound";
 
 type AimProps = {
   token: string;
@@ -63,7 +66,6 @@ export const Aim: React.FC<AimProps> = ({ token }) => {
     setCurrentTargetIndex(0);
     setHasGameFinished(false);
     setHasGameStarted(false);
-
   };
 
   useEffect(() => {
@@ -112,6 +114,9 @@ export const Aim: React.FC<AimProps> = ({ token }) => {
   };
 
   const handleTargetClick = (targetId: number) => {
+    if (playSound) {
+      playSound();
+    }
     if (hasGameStarted && !hasGameFinished) {
       setTargets((prevTargets) => {
         const updateTargets = [...prevTargets];
@@ -166,6 +171,8 @@ export const Aim: React.FC<AimProps> = ({ token }) => {
       };
     }
   }, [hasGameStarted, currentTargetIndex]);
+
+  const [playSound] = useSound(shotSound);
 
   return (
     <section className="game aim glass-container">

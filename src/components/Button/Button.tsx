@@ -17,8 +17,9 @@ export const Button: React.FC<ButtonProps> = ({
   type,
   onClick,
 }) => {
+  const [playSound] = useSound(clickSound);
+
   const handleSound = () => {
-    const [playSound] = useSound(clickSound);
     if (playSound) {
       playSound();
     }

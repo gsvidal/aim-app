@@ -12,6 +12,7 @@ export const Positions: React.FC<PositionsProps> = ({ token, username }) => {
   const [usersData, setUsersData] = useState<UserResponseObj[]>([]);
 
   useEffect(() => {
+    console.log("user-data", usersData)
     const fetchData = async () => {
       const data = await fetchAllUsersData(token);
       if (data) {
@@ -60,7 +61,9 @@ export const Positions: React.FC<PositionsProps> = ({ token, username }) => {
               ))
             ) : (
               <tr>
-                <td className="data-loading" colSpan={5}>Loading...</td>
+                <td className="data-loading" colSpan={5}>
+                  Loading...
+                </td>
               </tr>
             )}
           </tbody>
