@@ -21,6 +21,13 @@ export const Positions: React.FC<PositionsProps> = ({ token, username }) => {
     fetchData();
   }, []);
 
+  const rankedUsers = usersData.filter((userData) => userData.total !== null);
+  const unrankedUsers = usersData.filter((userData) => userData.total === null);
+
+  rankedUsers.sort((a, b) => b.total - a.total); // In case data from backend doesn't come desc ordered
+
+  const sortedUsersData = rankedUsers.concat(unrankedUsers);
+
   return (
     <section className="glass-container">
       <h1>General Ranking</h1>
@@ -42,8 +49,13 @@ export const Positions: React.FC<PositionsProps> = ({ token, username }) => {
             </tr>
           </thead>
           <tbody>
-            {usersData.map((userData, index) => (
-              <PositionItem id={index} key={userData.userId} userData={userData} loggedUsername = {username}/>
+            {sortedUsersData.map((userData, index) => (
+              <PositionItem
+                id={index}
+                key={userData.userId}
+                userData={userData}
+                loggedUsername={username}
+              />
             ))}
           </tbody>
         </table>

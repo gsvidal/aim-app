@@ -204,7 +204,7 @@ export const ReactionTime: React.FC<ReactionTimeProps> = ({ token }) => {
       <h1>Reaction time</h1>
       <div
         className={`game__arena ${hasColorChanged ? "activated" : ""}`}
-        onClick={
+        onMouseDown={
           hasGameStarted && hasColorChanged && reactionTime === 0
             ? handleReaction
             : hasGameStarted && !hasColorChanged && !isTooSoon
