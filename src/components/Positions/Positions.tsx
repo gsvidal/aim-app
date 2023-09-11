@@ -49,14 +49,20 @@ export const Positions: React.FC<PositionsProps> = ({ token, username }) => {
             </tr>
           </thead>
           <tbody>
-            {sortedUsersData.map((userData, index) => (
-              <PositionItem
-                id={index}
-                key={userData.userId}
-                userData={userData}
-                loggedUsername={username}
-              />
-            ))}
+            {usersData.length !== 0 ? (
+              sortedUsersData.map((userData, index) => (
+                <PositionItem
+                  id={index}
+                  key={userData.userId}
+                  userData={userData}
+                  loggedUsername={username}
+                />
+              ))
+            ) : (
+              <tr>
+                <td className="data-loading" colSpan={5}>Loading...</td>
+              </tr>
+            )}
           </tbody>
         </table>
       </div>

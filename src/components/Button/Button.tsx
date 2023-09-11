@@ -1,6 +1,6 @@
 import clickSound from "/assets/click-effect.mp3";
 // @ts-ignore
-import useSound from 'use-sound';
+import useSound from "use-sound";
 
 import "./Button.scss";
 
@@ -17,13 +17,19 @@ export const Button: React.FC<ButtonProps> = ({
   type,
   onClick,
 }) => {
-  const [playSound] = useSound(clickSound);
+  const handleSound = () => {
+    const [playSound] = useSound(clickSound);
+    if (playSound) {
+      playSound();
+    }
+  };
+
   return (
     <>
       <button
         className={`button button--${type}`}
-        onClick={type === "play" ? playSound : onClick}
-        disabled={children==="register" && !isButtonActive}
+        onClick={type === "play" ? handleSound : onClick}
+        disabled={children === "register" && !isButtonActive}
       >
         {children}
       </button>

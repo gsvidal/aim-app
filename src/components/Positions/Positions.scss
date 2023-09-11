@@ -142,3 +142,26 @@ and also iPads specifically.
     content: "Ranking:";
   }
 }
+
+@keyframes colorChange {
+  0% {
+    color: white;
+  }
+  25% {
+    color: rgb(132, 181, 255);
+  }
+  50% {
+    color: rgb(255, 121, 121);
+  }
+  75% {
+    color: rgb(206, 255, 128);
+  }
+  100% {
+    color: rgb(131, 255, 249);
+  }
+}
+
+.data-loading {
+  font-weight: bold;
+  animation: colorChange 1s linear;
+}
