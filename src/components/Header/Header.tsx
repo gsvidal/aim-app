@@ -114,30 +114,22 @@ export const Header: React.FC<HeaderProps> = ({
       <nav className={`nav ${isMenuOpen ? "open" : ""}`}>
         {isUserLoggedIn && (
           <ul className="nav__menu nav__menu--features">
-            <li className="nav__item">
-              <Link to="/" className="nav__link" onClick={toggleMenu}>
-                Dashboard
-              </Link>
-            </li>
-            <li className="nav__item">
-              <Link
-                to="/reaction-time"
-                className="nav__link"
-                onClick={toggleMenu}
-              >
-                Reaction Time
-              </Link>
-            </li>
-            <li className="nav__item">
-              <Link to="/aim" className="nav__link" onClick={toggleMenu}>
-                Aim
-              </Link>
-            </li>
-            <li className="nav__item">
-              <Link to="/positions" className="nav__link" onClick={toggleMenu}>
-                Positions
-              </Link>
-            </li>
+            <Link to="/" className="nav__link" onClick={toggleMenu}>
+              <li className="nav__item">Dashboard</li>
+            </Link>
+            <Link
+              to="/reaction-time"
+              className="nav__link"
+              onClick={toggleMenu}
+            >
+              <li className="nav__item">Reaction Time</li>
+            </Link>
+            <Link to="/aim" className="nav__link" onClick={toggleMenu}>
+              <li className="nav__item">Aim</li>
+            </Link>
+            <Link to="/positions" className="nav__link" onClick={toggleMenu}>
+              <li className="nav__item">Positions</li>
+            </Link>
           </ul>
         )}
         <ul className="nav__menu nav__menu--auth">
@@ -158,40 +150,39 @@ export const Header: React.FC<HeaderProps> = ({
                   isUserMenuOpen ? "active" : ""
                 }`}
               >
-                <li className="nav__item nav__username-item">
-                  <a className="nav__link theme" onClick={toggleThemeMenu}>
-                    My theme
-                  </a>
-                  <input
-                    type="color"
-                    className={`input-theme ${isThemeOpen ? "activate" : ""}`}
-                    onChange={handleSelectTheme}
-                    onBlur={handleSaveTheme}
-                    value={userTheme}
-                  />
+                <li className="nav__link theme">
+                  <div
+                    className="nav__item nav__username-item"
+                    onClick={toggleThemeMenu}
+                  >
+                    <div>My theme</div>
+                    <input
+                      type="color"
+                      className={`input-theme ${isThemeOpen ? "activate" : ""}`}
+                      onChange={handleSelectTheme}
+                      onBlur={handleSaveTheme}
+                      value={userTheme}
+                    />
+                  </div>
                 </li>
-                <li
-                  className="nav__item nav__username-item"
-                  onClick={handleLogout}
-                >
-                  <Link to="/" className="nav__link" onClick={toggleMenu}>
+                <Link to="/" className="nav__link" onClick={toggleMenu}>
+                  <li
+                    className="nav__item nav__username-item"
+                    onClick={handleLogout}
+                  >
                     Logout
-                  </Link>
-                </li>
+                  </li>
+                </Link>
               </ul>
             </div>
           ) : (
             <>
-              <li className="nav__item">
-                <Link to="/register" className="nav__link" onClick={toggleMenu}>
-                  Register
-                </Link>
-              </li>
-              <li className="nav__item">
-                <Link to="/login" className="nav__link" onClick={toggleMenu}>
-                  Login
-                </Link>
-              </li>
+              <Link to="/register" className="nav__link" onClick={toggleMenu}>
+                <li className="nav__item">Register</li>
+              </Link>
+              <Link to="/login" className="nav__link" onClick={toggleMenu}>
+                <li className="nav__item">Login</li>
+              </Link>
             </>
           )}
         </ul>

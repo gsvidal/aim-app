@@ -79,15 +79,20 @@
   }
 
   &__item {
-    margin: 0 20px;
+    margin: 0 0px;
     font-size: 1.4rem;
     font-weight: bold;
   }
 
   &__link {
+    margin: 0 20px;
     text-decoration: none;
     color: white;
     cursor: pointer;
+
+    &.theme {
+      margin: 0;
+    }
 
     &:hover {
       color: var(--secondary-color);
@@ -161,7 +166,8 @@
       background-color: #482d45;
       border-radius: 4px;
       list-style: none;
-      box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
+      box-shadow:
+        rgba(0, 0, 0, 0.3) 0px 19px 38px,
         rgba(0, 0, 0, 0.22) 0px 15px 12px;
 
       &.active {
@@ -279,6 +285,7 @@
         display: flex;
         flex-direction: column;
         justify-content: space-around;
+        align-items: center;
         position: static;
         width: initial;
         background-color: transparent;
