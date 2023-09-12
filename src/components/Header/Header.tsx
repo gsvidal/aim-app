@@ -93,7 +93,7 @@ export const Header: React.FC<HeaderProps> = ({
 
   return (
     <header className="header">
-      <a href="/aim-app-frontend" className="header__logo">
+      <a href="/aim-app" className="header__logo">
         <Target type="header" userTheme={userTheme} />
         <p className="header__logo-title" style={colorTheme}>
           Aim App
