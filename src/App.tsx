@@ -8,7 +8,6 @@ import { Dashboard } from "./components/Dashboard/Dashboard";
 import { Loader } from "./components/Loader/Loader";
 import { Toast } from "./components/Toast/Toast";
 
-// import viteLogo from "/vite.svg";
 import "./App.scss";
 import { ReactionTime } from "./components/ReactionTime/ReactionTime";
 import { AppDataResponseObj, fetchUserData } from "./api/adapter";
