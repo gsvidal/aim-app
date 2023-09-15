@@ -30,13 +30,15 @@ export const Header: React.FC<HeaderProps> = ({
   const [isUserMenuOpen, setIsUserMenuOpen] = useState<boolean>(false);
   const [isThemeOpen, setIsThemeOpen] = useState<boolean>(false);
 
-  const handleSaveTheme = () => {
-    localStorage.setItem("colorTheme", userTheme);
-  };
-
   const handleSelectTheme = (event: ChangeEvent<HTMLInputElement>) => {
     setUserTheme(event.target.value);
   };
+
+  useEffect(() => {
+    if (userTheme !== "#359e81") {
+      localStorage.setItem("colorTheme", userTheme);
+    }
+  }, [userTheme]);
 
   const toggleThemeMenu = () => {
     setIsThemeOpen(!isThemeOpen);
@@ -160,7 +162,6 @@ export const Header: React.FC<HeaderProps> = ({
                       type="color"
                       className={`input-theme ${isThemeOpen ? "activate" : ""}`}
                       onChange={handleSelectTheme}
-                      onBlur={handleSaveTheme}
                       value={userTheme}
                     />
                   </div>
