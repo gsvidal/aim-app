@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://www.gonzalovidal.dev/aim-app" rel="noopener">
-    <img width=200px height=200px src="https://i.postimg.cc/ncFbrPCD/aim-logo-trans.png" alt="Aim App">
+    <img width=80px height=80px src="https://i.postimg.cc/ncFbrPCD/aim-logo-trans.png" alt="Aim App">
   </a>
 </p>
 
