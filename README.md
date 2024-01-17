@@ -10,6 +10,8 @@
 </a> 
 <h3>Live at: https://www.gonzalovidal.dev/aim-app</h3>
 
+The BACKEND repo is [here](https://github.com/gsvidal/aim-app-backend)
+
 ---
 
 <h3 align="left">Description:</h3>
