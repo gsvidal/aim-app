@@ -45,10 +45,12 @@ The BACKEND repo is [here](https://github.com/gsvidal/aim-app-backend)
 
 ## 🧐 About <a name = "about"></a>
 
-This project is a fullstack React (TypeScript) - Flask (Python) application with a SQL (Postgres) database.
-Users have to login and then can play 2 games: reaction time and aiming
-They'll have a score and it will be saved.
-Finally they can watch a positions table with players ranked depending on their scores.
+This project is a fullstack React (TypeScript) - Flask (Python) application with a SQL (Postgres) database. 
+
+- Users need to register and then can play 2 games: reaction time and aiming. 
+- Users will get an average score after playing 3 times for each game and this will be saved.
+- Users can customize their web app with their favorite color theme.
+- Users can watch a positions table with all ranked players based on their scores (for each game).
 
 ## 💡 Design Process <a name = "design_process"></a>
 
