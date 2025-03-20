@@ -8,7 +8,9 @@
 <a href="https://www.gonzalovidal.dev/aim-app">
   <img src="https://i.postimg.cc/zXdy7sHM/aim-app.gif" width="700">
 </a> 
-<h3>Live at: https://www.gonzalovidal.dev/aim-app</h3>
+
+## 🚀 Live Demo (Currently Unavailable)
+⚠️ Note: The live demo is currently offline as the database instance is not running to reduce hosting costs. However, you can still explore the full source code and set it up locally.
 
 The BACKEND repo is [here](https://github.com/gsvidal/aim-app-backend)
 
